@@ -5,6 +5,8 @@
       <h2 v-for="post in posts" v-bind:key="post.id">{{ post.title }}</h2>
       <button class="btn btn-outline-secondary">Boo</button>
       <button class="btn btn-primary"></button>
+      <input type="text" v-model="text">
+      J'aime manger du : {{text}}
       <div>
         <b-spinner type="grow" label="Loading..."></b-spinner>
       </div>
@@ -14,6 +16,11 @@
 <script>
 export default {
   name: 'Test',
+  data () {
+    return {
+      text: ''
+    }
+  },
   computed: {
     posts () {
       return this.$store.state.posts
