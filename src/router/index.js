@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Home from '@/views/Home'
 import Test from '@/components/Test'
 import Login from '@/views/Login'
+import Register from '@/views/Register'
 import Profile from '@/views/Profile'
 
 Vue.use(Router)
@@ -11,8 +12,8 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Home',
+      component: Home
     },
     {
       path: '/test',
@@ -23,6 +24,11 @@ const router = new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
     },
     {
       path: '/profile',
