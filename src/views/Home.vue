@@ -2,10 +2,10 @@
 <div>
     <div class="container row mx-auto mb-3 pl-5" id="introwithimage">
 
-        <div class="container col-12 col-md-6 py-5 bg-transparent mx-0">
+        <div class="container col-12 col-md-6 py-5 bg-transparent mx-0 text-left">
             <h1 class="display-4">Welcome to </h1>
-            <h1 class="display-4 typewriter mb-3"><b>RiftSensei !</b></h1>
-            <h5 class="mb-4">Sneaker'z is the perfect place to buy or sell sneakers.</h5>
+            <h1 class="display-4 mb-3"><b>RiftSensei !</b></h1>
+            <h5 class="mb-4">Start your training and become a legend !</h5>
             <p class="lead">
               <a class="btn btn-primary btn-lg mr-2" href="" role="button">Find your sensei</a>
               <a class="btn btn-outline-secondary text-white btn-lg" href="" role="button">Become a sensei</a>
