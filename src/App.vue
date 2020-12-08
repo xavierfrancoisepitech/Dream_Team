@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <navbar/>
-    <img src="./assets/proto persolol.png" height="200px">
     <router-view/>
   </div>
 </template>
@@ -23,9 +22,6 @@ export default {
   text-align: center;
   color: #ffffff;
 }
-.btn{
-    border-radius: 25px!important;
-}
 
 .btn:hover{
     transform: scale(1.02);
@@ -35,6 +31,10 @@ export default {
 .btn-primary{
     border-color:  #27cda6!important;
     background-color: #27cda6!important;
+}
+
+.bg-light {
+  background-color: #293a4b !important;
 }
 
 </style>

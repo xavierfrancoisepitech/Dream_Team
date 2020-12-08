@@ -2,7 +2,11 @@
   <nav class="navbar navbar-expand navbar-dark">
     <div class="container">
       <div class="navbar-header">
-        <router-link class="navbar-brand" to="/">Rift Sensei</router-link>
+          <b-navbar variant="faded" type="light">
+            <b-navbar-brand :to="{ name: 'Home' }">
+              <img src="../assets/proto logo RIFT sensei.png" height="60px" alt="LogoRiftSensei">
+            </b-navbar-brand>
+          </b-navbar>
       </div>
       <ul class="nav navbar-nav">
         <router-link
