@@ -5,7 +5,8 @@ import Vue from 'vue'
 
 Vue.use(Vuex)
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
+axios.defaults.baseURL = 'http://localhost:8000/api'
+axios.defaults.withCredentials = true
 
 // to handle state
 const state = {
@@ -15,7 +16,6 @@ const state = {
 
 // to handle state
 const getters = {
-  isLogged: state => !!state.user
 }
 
 // to handle actions
@@ -25,17 +25,6 @@ const actions = {
       .then(response => {
         commit('SET_POSTS', response.data)
       })
-  },
-  login ({ commit }, credentials) {
-    return axios
-      .post('/login', credentials)
-      .then(({ data }) => {
-        commit('SET_USER_DATA', data)
-      })
-  },
-
-  logout ({ commit }) {
-    commit('CLEAR_USER_DATA')
   }
 }
 
@@ -47,11 +36,10 @@ const mutations = {
   },
   SET_USER_DATA (state, userData) {
     state.user = userData
-    localStorage.setItem('user', JSON.stringify(userData))
-    axios.defaults.headers.common.Authorization = `Bearer ${userData.token}`
   },
-  CLEAR_USER_DATA () {
-    localStorage.removeItem('user')
+
+  CLEAR_USER_DATA (state) {
+    state.user = null
     location.reload()
   }
 }

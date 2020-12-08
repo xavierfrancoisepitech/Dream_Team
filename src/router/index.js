@@ -4,7 +4,8 @@ import Home from '@/views/Home'
 import Test from '@/components/Test'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
-import Profile from '@/views/Profile'
+import Dashboard from '@/views/Dashboard'
+import Market from '@/views/Market'
 
 Vue.use(Router)
 
@@ -23,32 +24,60 @@ const router = new Router({
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
+      meta: { guestOnly: true }
     },
     {
       path: '/register',
       name: 'Register',
-      component: Register
+      component: Register,
+      meta: { guestOnly: true }
     },
     {
-      path: '/profile',
-      name: 'Profile',
-      meta: {
-        auth: true
-      },
-      component: Profile
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: Dashboard,
+      meta: {authOnly: true}
+    },
+    {
+      path: '/market',
+      name: 'Market',
+      component: Market,
+      meta: {authOnly: true}
     }
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  const loggedIn = localStorage.getItem('user')
+function isLoggedIn () {
+  return localStorage.getItem('auth')
+}
 
-  if (to.matched.some(record => record.meta.auth) && !loggedIn) {
-    next('/login')
-    return
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.authOnly)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (!isLoggedIn()) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else if (to.matched.some(record => record.meta.guestOnly)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (isLoggedIn()) {
+      next({
+        path: '/dashboard',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next() // make sure to always call next()!
   }
-  next()
 })
 
 export default router

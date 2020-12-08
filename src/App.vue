@@ -21,7 +21,20 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-
+  color: #ffffff;
 }
+.btn{
+    border-radius: 25px!important;
+}
+
+.btn:hover{
+    transform: scale(1.02);
+    box-shadow:0px 11px 14px -11px rgba(0,0,0,0.5);
+}
+
+.btn-primary{
+    border-color:  #27cda6!important;
+    background-color: #27cda6!important;
+}
+
 </style>

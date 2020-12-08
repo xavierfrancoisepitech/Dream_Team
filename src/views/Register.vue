@@ -1,5 +1,5 @@
 <template>
-   <div class="home col-5 mx-auto py-5 mt-5">
+  <div class="home col-5 mx-auto py-5 mt-5">
     <h1 class="text-center">Register</h1>
     <div class="card">
       <div class="card-body">
@@ -53,7 +53,7 @@
         </div>
         <button
           type="submit"
-          v-on:click="register(form)"
+          @click.prevent="register"
           class="btn btn-primary btn-block"
         >
           Register
@@ -64,6 +64,7 @@
 </template>
 
 <script>
+import User from '../apis/User'
 export default {
   data () {
     return {
@@ -75,10 +76,19 @@ export default {
       },
       errors: []
     }
+  },
+  methods: {
+    register () {
+      User.register(this.form)
+        .then(() => {
+          this.$router.push({ name: 'Login' })
+        })
+        .catch(error => {
+          if (error.response.status === 422) {
+            this.errors = error.response.data.errors
+          }
+        })
+    }
   }
 }
 </script>
-
-<style>
-
-</style>
