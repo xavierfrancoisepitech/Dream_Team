@@ -37,4 +37,8 @@ export default {
   background-color: #293a4b !important;
 }
 
+.card {
+  background-color: #263646 !important;
+}
+
 </style>
