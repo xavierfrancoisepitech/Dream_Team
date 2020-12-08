@@ -28,7 +28,7 @@
           class="nav-item nav-link"
           :to="{ name: 'Market' }"
         >
-          Wallet : {{this.$store.state.user.wallet}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt="">
+          Wallet : <b class="text-success">{{this.$store.state.user.wallet}}</b> <img class="pb-1" src="../assets/gem.svg" height="20px" alt="">
         </router-link>
         <router-link
           v-if="isLoggedIn"

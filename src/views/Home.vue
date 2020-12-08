@@ -17,7 +17,8 @@
               </div>
     </div>
 
-    <div style="height: 900px;" class="container-fluid bg-light py-5 wow animate__animated animate__backInRight" id="Features">
+    <div style="height: 900px;" class="container-fluid bg-light py-5" id="Features">
+        <div class="wow animate__animated animate__fadeInLeft">
         <div class="intro">
             <h3 class="text-center">Features </h3>
         </div>
@@ -58,7 +59,7 @@
             </div>
 
         </div>
-
+      </div>
     </div>
             <!-- Team -->
     <div class="container-fluid containergrey py-5 wow animate__animated animate__backInRight" id="Team">

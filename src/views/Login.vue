@@ -1,5 +1,6 @@
 <template>
   <div class="home col-5 mx-auto py-5 mt-5">
+    <img src="../assets/non.jpg" class="animate__animated animate__infinite animate__shakeY" v-if="this.form.email === 'maroua'" alt="">
     <h1 class="text-center">Login</h1>
     <div class="card">
       <div class="card-body">
