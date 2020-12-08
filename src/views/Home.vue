@@ -2,7 +2,7 @@
 <div>
     <div class="container row mx-auto mb-3 pl-5" id="introwithimage">
 
-        <div class="container col-12 col-md-6 py-5 bg-transparent mx-0 text-left">
+        <div class="container col-12 col-md-6 py-5 bg-transparent mx-0 text-left wow animate__animated animate__fadeInLeft">
             <h1 class="display-4">Welcome to </h1>
             <h1 class="display-4 mb-3"><b>RiftSensei !</b></h1>
             <h5 class="mb-4">Start your training and become a legend !</h5>
@@ -13,11 +13,11 @@
 
         </div>
               <div class="col-4 col-md-5 mr-3">
-                <img src="../assets/proto persolol.png" height="500px">
+                <img class= "wow animate__animated animate__backInRight" src="../assets/proto persolol.png" height="500px">
               </div>
     </div>
 
-    <div class="container-fluid bg-light py-5" id="Features">
+    <div style="height: 900px;" class="container-fluid bg-light py-5 wow animate__animated animate__backInRight" id="Features">
         <div class="intro">
             <h3 class="text-center">Features </h3>
         </div>
@@ -61,7 +61,7 @@
 
     </div>
             <!-- Team -->
-    <div class="container-fluid containergrey py-5" id="Team">
+    <div class="container-fluid containergrey py-5 wow animate__animated animate__backInRight" id="Team">
         <h3 class="text-center">Our team</h3>
             <div class="container py-4">
 
