@@ -6,6 +6,8 @@ import Login from '@/views/Login'
 import Register from '@/views/Register'
 import Dashboard from '@/views/Dashboard'
 import Market from '@/views/Market'
+import Profile from '@/views/Profile'
+import EditProfile from '@/views/EditProfile'
 
 Vue.use(Router)
 
@@ -44,6 +46,16 @@ const router = new Router({
       name: 'Market',
       component: Market,
       meta: {authOnly: true}
+    },
+    {
+      path: '/profile/:id',
+      name: 'Profile',
+      component: Profile
+    },
+    {
+      path: '/profile/edit',
+      name: 'EditProfile',
+      component: EditProfile
     }
   ]
 })

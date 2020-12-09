@@ -11,7 +11,7 @@ axios.defaults.withCredentials = true
 // to handle state
 const state = {
   posts: [],
-  user: null
+  authuser: null
 }
 
 // to handle state
@@ -35,11 +35,11 @@ const mutations = {
     console.log(state.posts)
   },
   SET_USER_DATA (state, userData) {
-    state.user = userData
+    state.authuser = userData
   },
 
   CLEAR_USER_DATA (state) {
-    state.user = null
+    state.authuser = null
     location.reload()
   }
 }

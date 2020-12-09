@@ -28,7 +28,7 @@
           class="nav-item nav-link"
           :to="{ name: 'Market' }"
         >
-          Wallet : <b class="text-success">{{this.$store.state.user.wallet}}</b> <img class="pb-1" src="../assets/gem.svg" height="20px" alt="">
+          Wallet : <b class="text-success">{{authuser.wallet}}</b> <img class="pb-1" src="../assets/gem.svg" height="20px" alt="">
         </router-link>
         <router-link
           v-if="isLoggedIn"
@@ -57,7 +57,12 @@ export default {
       isLoggedIn: false
     }
   },
-  mounted () {
+  computed: {
+    authuser () {
+      return this.$store.state.authuser
+    }
+  },
+  created () {
     this.isLoggedIn = !!localStorage.getItem('auth')
   },
   methods: {
