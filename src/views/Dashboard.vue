@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ authuser }}
       <div class="container emp-profile">
             <form method="post">
                 <div class="row">
@@ -13,128 +12,58 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="profile-head">
-                                    <h5>
+                    <div class="col-md-6 my-md-auto">
+                        <div class="profile-head mt-2">
+                                    <h3>
                                         {{ authuser.name }}
-                                    </h5>
+                                    </h3>
                                     <h5 v-if="authuser.verified_coach === 1">
                                       <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
                                     </h5>
+                                      <img class = "mt-3" src="../assets/ranks/9.png" height="50px"/>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 mt-2 ">
                         <b-button :to="{ name: 'EditProfile' }"> Edit Profile </b-button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="profile-work">
-                            <p>WORK LINK</p>
-                            <a href="">Website Link</a><br/>
-                            <a href="">Bootsnipp Profile</a><br/>
-                            <a href="">Bootply Profile</a>
-                            <p>SKILLS</p>
-                            <a href="">Web Designer</a><br/>
-                            <a href="">Web Developer</a><br/>
-                            <a href="">WordPress</a><br/>
-                            <a href="">WooCommerce</a><br/>
-                            <a href="">PHP, .Net</a><br/>
+                        <div class="profile-coach mt-5">
+                            <h6>COACHING HOURS</h6>
+                            {{ authuser.hours }}
+                            <h6 class = "mt-5">RATE</h6>
+                            <b-form-rating v-model="value" variant="warning" class="mb-2 bg-transparent rating"></b-form-rating>
+                        </div>
+                        <div class="profile-coach mt-5">
+                            <h6 class="mb-4">SOCIAL MEDIAS</h6>
+                            <a class="text-white" :href="authuser.twitter_link">
+                              <i class="fab fa-twitter fa-2x mx-3"></i>
+                            </a>
+                            <a class="text-white" :href="authuser.discord_link">
+                              <i class="fab fa-discord fa-2x mx-3"></i>
+                            </a>
+                            <a class="text-white" :href="authuser.opgg_link">
+                              <i class="fab fa-gg fa-2x mx-3"></i>
+                            </a>
                         </div>
                     </div>
-                    <div class="col-md-8">
-                        <div class="tab-content profile-tab" id="myTabContent">
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>User Id</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>Kshiti123</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Name</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>Kshiti Ghelani</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Email</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>kshitighelani@gmail.com</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Phone</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>123 456 7890</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Profession</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>Web Developer and Designer</p>
-                                            </div>
-                                        </div>
-                            </div>
-                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Experience</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>Expert</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Hourly Rate</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>10$/hr</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Total Projects</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>230</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>English Level</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>Expert</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Availability</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>6 months</p>
-                                            </div>
-                                        </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label>Your Bio</label><br/>
-                                        <p>Your detail description</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-8 text-left">
+                      <b-card title="Description" class="bglight mt-5">
+                        <b-card-text>
+                          {{ authuser.description }}
+                        </b-card-text>
+                      </b-card>
+                      <b-card title="Pedagogy" class="bglight mt-5">
+                        <b-card-text>
+                          {{ authuser.pedagogy }}
+                        </b-card-text>
+                      </b-card>
+                      <b-card title="Comments" class="bglight mt-5">
+                        <b-card-text>
+                          {{ authuser.description }}
+                        </b-card-text>
+                      </b-card>
                     </div>
                 </div>
             </form>
@@ -145,6 +74,11 @@
 <script>
 import User from '../apis/User'
 export default {
+  data () {
+    return {
+      value: 4
+    }
+  },
   created () {
     User.auth().then(response => {
       // console.log(response.data)
@@ -192,62 +126,26 @@ export default {
     top: 0;
 }
 .profile-head h6{
-    color: #0062cc;
+    color: #ccc500;
 }
-.profile-edit-btn{
-    border: none;
-    border-radius: 1.5rem;
-    width: 70%;
-    padding: 2%;
-    font-weight: 600;
-    color: #6c757d;
-    cursor: pointer;
-}
-.proile-rating{
-    font-size: 12px;
-    color: #818182;
-    margin-top: 5%;
-}
-.proile-rating span{
-    color: #495057;
-    font-size: 15px;
-    font-weight: 600;
-}
-.profile-head .nav-tabs{
-    margin-bottom:5%;
-}
-.profile-head .nav-tabs .nav-link{
-    font-weight:600;
-    border: none;
-}
-.profile-head .nav-tabs .nav-link.active{
-    border: none;
-    border-bottom:2px solid #0062cc;
-}
-.profile-work{
+
+.profile-coach{
     padding: 14%;
-    margin-top: -15%;
+    background-color: #293a4b;
 }
-.profile-work p{
-    font-size: 12px;
-    color: #818182;
-    font-weight: 600;
-    margin-top: 10%;
-}
-.profile-work a{
-    text-decoration: none;
-    color: #495057;
-    font-weight: 600;
-    font-size: 14px;
-}
-.profile-work ul{
-    list-style: none;
-}
+
 .profile-tab label{
     font-weight: 600;
 }
 .profile-tab p{
     font-weight: 600;
     color: #0062cc;
+}
+.rating {
+  border: none;
+}
+.bglight {
+  background-color: #293a4b !important;
+  border: none;
 }
 </style>
