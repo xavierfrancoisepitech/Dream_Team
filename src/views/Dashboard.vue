@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
-                            <img src="../assets/user.jpg" class="rounded-circle" alt=""/>
+                            <img src="https://picsum.photos/200" class="rounded-circle" alt=""/>
                             <div class="file btn btn-lg btn-primary">
                                 Change Photo
                                 <input type="file" name="file"/>

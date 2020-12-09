@@ -8,6 +8,7 @@ import Dashboard from '@/views/Dashboard'
 import Market from '@/views/Market'
 import Profile from '@/views/Profile'
 import EditProfile from '@/views/EditProfile'
+import CreateAd from '@/views/CreateAd'
 
 Vue.use(Router)
 
@@ -56,6 +57,12 @@ const router = new Router({
       path: '/profile/edit',
       name: 'EditProfile',
       component: EditProfile
+    },
+    {
+      path: '/ads/create',
+      name: 'CreateAd',
+      component: CreateAd,
+      meta: {authOnly: true}
     }
   ]
 })
