@@ -100,7 +100,7 @@
 
                         <div class="card  card-team mb-3">
                             <div class="card-body text-center">
-                                <p><img class="profilePicture" src="" width="200px" height="200px" alt="card image"></p>
+                                <p><b-avatar :src="require('../assets/xavier.png')" size="6rem"></b-avatar></p>
                                 <h4 class="card-title">Xavier</h4>
                                 <p class="card-text">2020 Epitech Coding Academy student.</p>
                                 <a href="mailto:someone@example.com" class="btn btn-primary btn-sm"><i class="fas fa-envelope"></i></a>

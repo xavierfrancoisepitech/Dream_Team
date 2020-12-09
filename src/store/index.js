@@ -2,6 +2,7 @@
 import axios from 'axios'
 import Vuex from 'vuex'
 import Vue from 'vue'
+import User from '../apis/User'
 
 Vue.use(Vuex)
 
@@ -25,6 +26,14 @@ const actions = {
       .then(response => {
         commit('SET_POSTS', response.data)
       })
+  },
+  addGems ({ commit }, data) {
+    axios.put('/users/' + data[0], {
+      wallet: state.authuser.wallet + data[1]
+    })
+      .then(User.auth().then(response => {
+        commit('SET_USER_DATA', response.data)
+      }))
   }
 }
 
