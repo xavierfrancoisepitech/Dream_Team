@@ -48,6 +48,14 @@ const actions = {
       .then(response => {
         commit('SET_RANKS', response.data)
       })
+  },
+  bookIt ({ commit }, data) {
+    axios.put('/ads', {
+      student_id: state.authuser.id,
+      student_rank: state.authuser.rank_id,
+      pending: 1
+    })
+      .then(response => commit('BOOK_AD', response.data))
   }
 }
 
@@ -67,11 +75,12 @@ const mutations = {
   },
   SET_USERS (state, users) {
     state.users = users
-    console.log(state.users)
   },
   SET_RANKS (state, ranks) {
     state.ranks = ranks
-    console.log(state.ranks)
+  },
+  BOOK_AD (state, ad) {
+    state.ads = ad
   }
 }
 

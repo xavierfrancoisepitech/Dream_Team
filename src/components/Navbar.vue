@@ -10,6 +10,12 @@
       </div>
       <ul class="nav navbar-nav">
         <router-link
+          class="nav-item nav-link"
+          :to="{ name: 'Ads' }"
+        >
+          Ads
+        </router-link>
+        <router-link
           v-if="!isLoggedIn"
           class="nav-item nav-link"
           :to="{ name: 'Login' }"
