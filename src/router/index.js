@@ -9,6 +9,7 @@ import Market from '@/views/Market'
 import Profile from '@/views/Profile'
 import EditProfile from '@/views/EditProfile'
 import CreateAd from '@/views/CreateAd'
+import Ads from '@/views/Ads'
 
 Vue.use(Router)
 
@@ -18,6 +19,11 @@ const router = new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/ads',
+      name: 'Ads',
+      component: Ads
     },
     {
       path: '/test',
