@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <button class="btn btn-info" @click="bookIt({'cost' : -(ad.hourly_rate)*(ad.duration)})">Book it ! <br> {{(ad.hourly_rate)*(ad.duration)}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""></button>
+      <button class="btn btn-info" @click="bookIt({'cost' : -(ad.hourly_rate)*(ad.duration), 'id' : ad.id})">Book it ! <br> {{(ad.hourly_rate)*(ad.duration)}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""></button>
     </b-card>
       </div>
     </div>
@@ -62,13 +62,14 @@ export default {
       window.alert('Please login to book an Ad !')
       window.location.href = 'http://localhost:8080/#/login'
     },
-    bookIt (value) {
+    async bookIt (value) {
       if (this.$store.state.authuser.wallet + value.cost <= 0) {
-        console.log(this.$store.state.authuser.wallet + value.cost)
         alert('Please head to the Wallet shop to buy some gems before booking !')
+        window.location.href = 'http://localhost:8080/#/market'
       } else {
-        this.$store.dispatch('bookIt')
-        this.$store.dispatch('addGems', [this.$store.state.authuser.id, value.cost])
+        await this.$store.dispatch('bookIt', [this.$store.state.authuser.id, value.id, this.$store.state.authuser.rank_id])
+        await this.$store.dispatch('getAds')
+        await this.$store.dispatch('addGems', [this.$store.state.authuser.id, value.cost])
       }
     }
   },

@@ -23,13 +23,13 @@ const getters = {
 
 // to handle actions
 const actions = {
-  getAds ({ commit }) {
+  getAds ({commit}) {
     axios.get('/ad')
       .then(response => {
         commit('SET_ADS', response.data)
       })
   },
-  addGems ({ commit }, data) {
+  addGems ({commit}, data) {
     axios.put('/users/' + data[0], {
       wallet: state.authuser.wallet + data[1]
     })
@@ -37,25 +37,25 @@ const actions = {
         commit('SET_USER_DATA', response.data)
       }))
   },
-  getUsers ({ commit }) {
+  getUsers ({commit}) {
     axios.get('/users')
       .then(response => {
         commit('SET_USERS', response.data)
       })
   },
-  getRanks ({ commit }) {
+  getRanks ({commit}) {
     axios.get('/rank')
       .then(response => {
         commit('SET_RANKS', response.data)
       })
   },
-  bookIt ({ commit }, data) {
-    axios.put('/ads', {
-      student_id: state.authuser.id,
-      student_rank: state.authuser.rank_id,
+  bookIt ({commit}, data) {
+    console.log(data)
+    axios.put('/ad/' + data[1], {
+      student_id: data[0],
+      student_rank: data[2],
       pending: 1
     })
-      .then(response => commit('BOOK_AD', response.data))
   }
 }
 
