@@ -38,6 +38,10 @@
         <button @click.prevent="login" class="btn btn-primary btn-block">
           Login
         </button>
+        <br>
+        <div>
+          <router-link to="/register"><input type="button" class="btn btn-info btn-block" value="Not registered yet ?"/></router-link>
+        </div>
       </div>
     </div>
   </div>

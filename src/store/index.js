@@ -11,7 +11,9 @@ axios.defaults.withCredentials = true
 
 // to handle state
 const state = {
-  posts: [],
+  ads: [],
+  users: [],
+  ranks: [],
   authuser: null
 }
 
@@ -21,10 +23,10 @@ const getters = {
 
 // to handle actions
 const actions = {
-  getPosts ({ commit }) {
-    axios.get('https://jsonplaceholder.typicode.com/posts')
+  getAds ({ commit }) {
+    axios.get('/ad')
       .then(response => {
-        commit('SET_POSTS', response.data)
+        commit('SET_ADS', response.data)
       })
   },
   addGems ({ commit }, data) {
@@ -34,14 +36,26 @@ const actions = {
       .then(User.auth().then(response => {
         commit('SET_USER_DATA', response.data)
       }))
+  },
+  getUsers ({ commit }) {
+    axios.get('/users')
+      .then(response => {
+        commit('SET_USERS', response.data)
+      })
+  },
+  getRanks ({ commit }) {
+    axios.get('/rank')
+      .then(response => {
+        commit('SET_RANKS', response.data)
+      })
   }
 }
 
 // to handle mutations
 const mutations = {
-  SET_POSTS (state, posts) {
-    state.posts = posts
-    console.log(state.posts)
+  SET_ADS (state, ads) {
+    state.ads = ads
+    console.log(state.ads)
   },
   SET_USER_DATA (state, userData) {
     state.authuser = userData
@@ -50,6 +64,14 @@ const mutations = {
   CLEAR_USER_DATA (state) {
     state.authuser = null
     location.reload()
+  },
+  SET_USERS (state, users) {
+    state.users = users
+    console.log(state.users)
+  },
+  SET_RANKS (state, ranks) {
+    state.ranks = ranks
+    console.log(state.ranks)
   }
 }
 

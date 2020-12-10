@@ -7,8 +7,8 @@
             <h1 class="display-4 mb-3"><b>RiftSensei !</b></h1>
             <h5 class="mb-4">Start your training and become a legend !</h5>
             <p class="lead">
-              <a class="btn btn-primary btn-lg mr-2" href="" role="button">Find your sensei</a>
-              <a class="btn btn-outline-secondary text-white btn-lg" href="" role="button">Become a sensei</a>
+              <router-link to="/ads" class="btn btn-primary btn-lg mr-2" role="button">Find your sensei</router-link>
+              <router-link to="/ads/create" class="btn btn-outline-secondary text-white btn-lg mr-2" role="button">Become a sensei</router-link>
             </p>
 
         </div>
@@ -29,7 +29,7 @@
                         <div class="card-body text-center">
                             <p><i class="fas fa-bolt mt-5 mb-4"></i></p>
                             <h4 class="card-title mb-5">Easy to use</h4>
-                            <p class="card-text mb-4">Sneaker'z is really easy to use. Sell or buy shoes very quickly.</p>
+                            <p class="card-text mb-4">RiftSensei is really easy to use. Sell or buy shoes very quickly.</p>
 
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                         <div class="card-body text-center">
                             <p><i class="fas fa-mobile-alt mt-5 mb-4"></i></p>
                             <h4 class="card-title mb-5">Responsive</h4>
-                            <p class="card-text mb-4">Sneaker'z is a full responsive service. Use it on your phone, tablet, desktop.</p>
+                            <p class="card-text mb-4">RiftSensei is a full responsive service. Use it on your phone, tablet, desktop.</p>
 
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                         <div class="card-body text-center">
                             <p><i class="fas fa-tree mt-5 mb-4"></i></p>
                             <h4 class="card-title mb-5">Green</h4>
-                            <p class="card-text mb-4">Sneaker'z is a green start-up ! One tree is planted for each sell.</p>
+                            <p class="card-text mb-4">RiftSensei is a green start-up ! One tree is planted for each sell.</p>
 
                         </div>
                     </div>

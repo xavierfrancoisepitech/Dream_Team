@@ -58,6 +58,10 @@
         >
           Register
         </button>
+        <br>
+        <div>
+          <router-link to="/login"><input type="button" class="btn btn-info btn-block" value="Already registered ?"/></router-link>
+        </div>
       </div>
     </div>
   </div>
