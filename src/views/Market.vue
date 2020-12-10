@@ -1,20 +1,66 @@
 <template>
   <div class="container">
-    <h1>Market</h1>
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">Buy Gems</div>
+    <h2>Buy Gems <img class="pb-1" src="../assets/gem.svg" height="30px" alt=""></h2>
+    <div>
+    <b-card-group deck class="mt-5">
+      <b-card img-src="https://i.postimg.cc/tgYfBGwM/100gems.png" img-alt="Card image" img-top>
+        <b-card-text>
+          <h5>Newbie Pack</h5>
+          <h5>4,99€</h5>
+          <button class="btn btn-primary" @click="addGems(100); showAlert();" >Purchase</button>
+        </b-card-text>
+      </b-card>
+      <b-card img-src="https://i.postimg.cc/cJ2zj5N4/300gems.png" img-alt="Card image" img-top>
+        <b-card-text>
+          <h5>Starter Pack</h5>
+          <h5>11,99€</h5>
+          <button class="btn btn-primary" @click="addGems(300); showAlert();">Purchase</button>
+        </b-card-text>
+      </b-card>
 
+    </b-card-group>
+  </div>
+  <div class="mt-4">
+    <b-card-group deck>
+      <b-card img-src="https://i.postimg.cc/153KGcLW/500gems.png" img-alt="Card image" img-top>
+        <b-card-text>
+          <h5>Intermediate Pack</h5>
+          <h5>17,99€</h5>
+          <button class="btn btn-primary" @click="addGems(500); showAlert();">Purchase</button>
+        </b-card-text>
+      </b-card>
+      <b-card img-src="https://i.postimg.cc/MHWmryXp/1000gems.png" img-alt="Card image" img-top>
+        <b-card-text>
+          <h5>Pro Pack</h5>
+          <h5>30,99€</h5>
+          <button class="btn btn-primary" @click="addGems(1000); showAlert();">Purchase</button>
+        </b-card-text>
+      </b-card>
+
+    </b-card-group>
+  </div>
+  <b-alert
+      :show="dismissCountDown"
+      dismissible
+      variant="success"
+      @dismissed="dismissCountDown=0"
+      @dismiss-count-down="countDownChanged"
+      class="mt-2"
+    >
+      <p>Thanks for your purchase! Your gems has been added to your wallet <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""></p>
+      <b-progress
+        variant="success"
+        :max="dismissSecs"
+        :value="dismissCountDown"
+        height="4px"
+      ></b-progress>
+    </b-alert>
+
+    <div class="row justify-content-center">
+      <div class="col-md-8 mt-5">
+        <div class="card">
+          <div class="card-header">Bonus Code</div>
           <div class="card-body">
-            <div>
-              <b-dropdown id="dropdown-1" text="Select your bundle" class="m-md-2" variant="info">
-                <b-dropdown-item @click="addGems(100)">Newbie pack: {{this.money.gems[0]}}<img class="pb-1" src="../assets/gem.svg" height="20px" alt=""></b-dropdown-item>
-                <b-dropdown-item @click="addGems(500)">Intermediate pack: {{this.money.gems[1]}}<img class="pb-1" src="../assets/gem.svg" height="20px" alt=""></b-dropdown-item>
-                <b-dropdown-item @click="addGems(999)">Pro pack: {{this.money.gems[2]}}<img class="pb-1" src="../assets/gem.svg" height="20px" alt=""></b-dropdown-item>
-              </b-dropdown>
-            </div>
-            <br>
             <form>
             <div class="form-group" id="easter">
               <label for="code">Code:</label>
@@ -52,7 +98,10 @@ export default {
       form: {
         code: ''
       },
-      newWallet: ''
+      newWallet: '',
+      dismissSecs: 10,
+      dismissCountDown: 0,
+      showDismissibleAlert: false
     }
   },
   methods: {
@@ -77,6 +126,12 @@ export default {
       img.setAttribute('height', '228')
       img.setAttribute('alt', '')
       document.getElementById('easter').appendChild(img)
+    },
+    countDownChanged (dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    showAlert () {
+      this.dismissCountDown = this.dismissSecs
     }
   }
 }

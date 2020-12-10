@@ -60,12 +60,12 @@ export default {
   methods: {
     notConnected () {
       window.alert('Please login to book an Ad !')
-      window.location.href = 'http://localhost:8080/#/login'
+      this.$router.push('login')
     },
     async bookIt (value) {
       if (this.$store.state.authuser.wallet + value.cost <= 0) {
         alert('Please head to the Wallet shop to buy some gems before booking !')
-        window.location.href = 'http://localhost:8080/#/market'
+        this.$router.push('Market')
       } else {
         await this.$store.dispatch('bookIt', [this.$store.state.authuser.id, value.id, this.$store.state.authuser.rank_id])
         await this.$store.dispatch('getAds')

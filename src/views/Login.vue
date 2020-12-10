@@ -40,7 +40,7 @@
         </button>
         <br>
         <div>
-          <router-link to="/register"><input type="button" class="btn btn-info btn-block" value="Not registered yet ?"/></router-link>
+          <router-link to="/register" class="btn btn-info btn-block">Not registered yet ?</router-link>
         </div>
       </div>
     </div>

@@ -30,7 +30,7 @@
           Register
         </router-link>
          <router-link
-          v-if="isLoggedIn"
+          v-if="isLoggedIn && authuser"
           class="nav-item nav-link"
           :to="{ name: 'Market' }"
         >
