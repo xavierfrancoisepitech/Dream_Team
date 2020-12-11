@@ -3,14 +3,14 @@
     <h2>Buy Gems <img class="pb-1" src="../assets/gem.svg" height="30px" alt=""></h2>
     <div>
     <b-card-group deck class="mt-5">
-      <b-card img-src="https://i.postimg.cc/tgYfBGwM/100gems.png" img-alt="Card image" img-top>
+      <b-card class ="gems" img-src="https://i.postimg.cc/tgYfBGwM/100gems.png" img-alt="Card image" img-top>
         <b-card-text>
           <h5>Newbie Pack</h5>
           <h5>4,99€</h5>
           <button class="btn btn-primary" @click="addGems(100); showAlert();" >Purchase</button>
         </b-card-text>
       </b-card>
-      <b-card img-src="https://i.postimg.cc/cJ2zj5N4/300gems.png" img-alt="Card image" img-top>
+      <b-card class ="gems" img-src="https://i.postimg.cc/cJ2zj5N4/300gems.png" img-alt="Card image" img-top>
         <b-card-text>
           <h5>Starter Pack</h5>
           <h5>11,99€</h5>
@@ -22,14 +22,14 @@
   </div>
   <div class="mt-4">
     <b-card-group deck>
-      <b-card img-src="https://i.postimg.cc/153KGcLW/500gems.png" img-alt="Card image" img-top>
+      <b-card class ="gems" img-src="https://i.postimg.cc/153KGcLW/500gems.png" img-alt="Card image" img-top>
         <b-card-text>
           <h5>Intermediate Pack</h5>
           <h5>17,99€</h5>
           <button class="btn btn-primary" @click="addGems(500); showAlert();">Purchase</button>
         </b-card-text>
       </b-card>
-      <b-card img-src="https://i.postimg.cc/MHWmryXp/1000gems.png" img-alt="Card image" img-top>
+      <b-card class ="gems" img-src="https://i.postimg.cc/MHWmryXp/1000gems.png" img-alt="Card image" img-top>
         <b-card-text>
           <h5>Pro Pack</h5>
           <h5>30,99€</h5>
@@ -137,6 +137,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.gems:hover {
+  transform: scale(1.03);
+  box-shadow:0px 11px 44px -11px rgba(0,0,0,0.1) ;
+}
 
 </style>

@@ -50,7 +50,6 @@ const actions = {
       })
   },
   bookIt ({commit}, data) {
-    console.log(data)
     axios.put('/ad/' + data[1], {
       student_id: data[0],
       student_rank: data[2],
@@ -63,7 +62,6 @@ const actions = {
 const mutations = {
   SET_ADS (state, ads) {
     state.ads = ads
-    console.log(state.ads)
   },
   SET_USER_DATA (state, userData) {
     state.authuser = userData

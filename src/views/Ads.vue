@@ -1,62 +1,137 @@
 <template>
-  <div> {{authuser}}
-  <div v-for="ad in ads" :key="ad.id">
-    <div v-if="authuser">
-      <div v-if="(!(authuser.id === ad.user_id) && !(ad.pending === 1))">
-        <b-card>
-      <div>{{ad.description}}</div>
-      <div>Price: {{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""></div>
-      <div>Date of coaching: {{ad.coaching_date}}</div>
-          <div>Coaching time: {{ad.duration}}</div>
-      <div>
-        <div v-for="user in users" :key="user.id">
-          <div v-if="ad.user_id === user.id">
-            <div>{{user.name}}</div>
-            <div v-for="rank in ranks" :key="rank.id">
-              <div v-if="user.rank_id === rank.id">
-                <span>{{rank.name}}</span>
-                <img :src="rank.image" height="150" width="150">
+<div>
+  <div class="container-fluid">
+      <b-alert
+      :show="dismissCountDown"
+      dismissible
+      variant="success"
+      @dismissed="dismissCountDown=0"
+      @dismiss-count-down="countDownChanged"
+      class="mt-2"
+    >
+      <p>You have successfully booked a coaching, you can now see it on your dashboard !</p>
+      <b-progress
+        variant="success"
+        :max="dismissSecs"
+        :value="dismissCountDown"
+        height="4px"
+      ></b-progress>
+    </b-alert>
+
+    <div class="row">
+      <div class="container col-md-3 pt-4 pb-4 pl-4 pr-0">
+          <div class="card" style="height: 700px"> Search zone</div>
+      </div>
+
+      <div class="container col-md-9 p-4">
+          <div v-for="ad in ads" :key="ad.id">
+            <div v-if="authuser">
+              <div v-if="(!(ad.pending === 1))">
+                <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="mb-3 p-3">
+                  <b-card-text>
+                    <div class="row">
+                      <div class="container col-md-4 text-left">
+                        <div v-for="user in users" :key="user.id">
+                          <div v-if="ad.user_id === user.id">
+                            <h6><b>{{user.name}}</b></h6>
+                              <h5 v-if="user.verified_coach === 1">
+                                      <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
+                              </h5>
+                            <div v-for="rank in ranks" :key="rank.id">
+                              <div v-if="user.rank_id === rank.id">
+                                <h6><b>{{rank.name}}</b>
+                                  <img :src="rank.image" height="50" width="50">
+                                </h6>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="container col-md-4 text-left">
+                        <h6><b>Description</b></h6>
+                        <div>{{ad.description}}</div>
+                        <br>
+                        <h6><b>Date of coaching</b></h6>
+                        <div>{{ad.coaching_date}}</div>
+                        <br>
+                        <h6><b>Duration : </b> {{ad.duration}} hours</h6>
+                      </div>
+                      <div class="container col-md-4 text-left">
+                        <h6><b>Price</b></h6>
+                        <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
+                        <br>
+                        <div v-if="!(authuser.id === ad.user_id)">
+                        <button class="btn btn-primary mt-5 btn-block " @click="bookIt({'cost' : -(ad.hourly_rate)*(ad.duration), 'id' : ad.id}); showAlert();"><b> Book it ! {{(ad.hourly_rate)*(ad.duration)}} </b><img class="pb-1" src="../assets/gem.svg" height="20px" alt=""></button>
+                        </div>
+                        <div v-else>
+                          <button class="btn btn-primary mt-5 btn-block" disabled>You posted this ad</button>
+                        </div>
+                      </div>
+                    </div>
+                  </b-card-text>
+                </b-card>
+              </div>
+            </div>
+            <div v-else>
+              <div v-if="!(ad.pending === 1)">
+                <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="mb-3 p-3">
+                  <b-card-text>
+                    <div class="row">
+                      <div class="container col-md-4 text-left">
+                        <div v-for="user in users" :key="user.id">
+                          <div v-if="ad.user_id === user.id">
+                            <h6><b>{{user.name}}</b></h6>
+                              <h5 v-if="user.verified_coach === 1">
+                                      <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
+                              </h5>
+                            <div v-for="rank in ranks" :key="rank.id">
+                              <div v-if="user.rank_id === rank.id">
+                                <h6><b>{{rank.name}}</b>
+                                  <img :src="rank.image" height="50" width="50">
+                                </h6>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="container col-md-4 text-left">
+                        <h6><b>Description</b></h6>
+                        <div>{{ad.description}}</div>
+                        <br>
+                        <h6><b>Date of coaching</b></h6>
+                        <div>{{ad.coaching_date}}</div>
+                        <br>
+                        <h6><b>Duration : </b> {{ad.duration}} hours</h6>
+                      </div>
+                      <div class="container col-md-4 text-left">
+                        <h6><b>Price</b></h6>
+                        <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
+                        <br>
+                        <button class="btn btn-primary mt-5 btn-block " @click="bookIt({'cost' : -(ad.hourly_rate)*(ad.duration), 'id' : ad.id}); showAlert();"><b> Book it ! {{(ad.hourly_rate)*(ad.duration)}} </b><img class="pb-1" src="../assets/gem.svg" height="20px" alt=""></button>
+                      </div>
+                    </div>
+                  </b-card-text>
+                </b-card>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <button class="btn btn-info" @click="bookIt({'cost' : -(ad.hourly_rate)*(ad.duration), 'id' : ad.id})">Book it ! <br> {{(ad.hourly_rate)*(ad.duration)}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""></button>
-    </b-card>
-      </div>
-    </div>
-    <div v-else>
-      <div v-if="!(ad.pending === 1)">
-        <b-card>
-          <div>{{ad.description}}</div>
-          <div>Price: {{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""></div>
-          <div>Date of coaching: {{ad.coaching_date}}</div>
-          <div>
-            <div v-for="user in users" :key="user.id">
-              <div v-if="ad.user_id === user.id">
-                <div>{{user.name}}</div>
-                <div v-for="rank in ranks" :key="rank.id">
-                  <div v-if="user.rank_id === rank.id">
-                    <span>{{rank.name}}</span>
-                    <img :src="rank.image" height="150" width="150">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button class="btn btn-info" @click="notConnected">Book it !</button>
-        </b-card>
       </div>
     </div>
   </div>
-  </div>
+</div>
 </template>
 
 <script>
-// import Navbar from '../components/Navbar'
 import { mapState } from 'vuex'
 export default {
   name: 'Ads',
+  data () {
+    return {
+      dismissSecs: 10,
+      dismissCountDown: 0,
+      showDismissibleAlert: false
+    }
+  },
   methods: {
     notConnected () {
       window.alert('Please login to book an Ad !')
@@ -71,6 +146,12 @@ export default {
         await this.$store.dispatch('getAds')
         await this.$store.dispatch('addGems', [this.$store.state.authuser.id, value.cost])
       }
+    },
+    countDownChanged (dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    showAlert () {
+      this.dismissCountDown = this.dismissSecs
     }
   },
   computed: {
