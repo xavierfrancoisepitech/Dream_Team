@@ -29,6 +29,17 @@ const actions = {
         commit('SET_ADS', response.data)
       })
   },
+  deleteAd ({commit}, data) {
+    axios.delete('/ad/' + data)
+  },
+  editAd ({commit}, data) {
+    axios.put('/ad/' + data[0], {
+      coaching_date: data[1].coaching_date,
+      description: data[1].description,
+      duration: data[1].duration,
+      hourly_rate: data[1].hourly_rate
+    })
+  },
   addGems ({commit}, data) {
     axios.put('/users/' + data[0], {
       wallet: state.authuser.wallet + data[1]

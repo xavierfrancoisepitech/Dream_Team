@@ -9,7 +9,7 @@
       @dismiss-count-down="countDownChanged"
       class="mt-2"
     >
-      <p>You have successfully booked a coaching, you can now see it on your dashboard !</p>
+      <p>You have successfully booked a coaching, you can now see it on your <router-link to="/dashboard">dashboard</router-link> !</p>
       <b-progress
         variant="success"
         :max="dismissSecs"
@@ -42,6 +42,7 @@
                                 <h6><b>{{rank.name}}</b>
                                   <img :src="rank.image" height="50" width="50">
                                 </h6>
+                                <b-button variant="outline-info" :to="{ path: 'profile/' + ad.user_id }">Coach profile</b-button>
                               </div>
                             </div>
                           </div>
@@ -54,7 +55,7 @@
                         <h6><b>Date of coaching</b></h6>
                         <div>{{ad.coaching_date}}</div>
                         <br>
-                        <h6><b>Duration : </b> {{ad.duration}} hours</h6>
+                        <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
                       </div>
                       <div class="container col-md-4 text-left">
                         <h6><b>Price</b></h6>
@@ -89,6 +90,7 @@
                                 <h6><b>{{rank.name}}</b>
                                   <img :src="rank.image" height="50" width="50">
                                 </h6>
+                                <b-button variant="outline-info" :to="{ path: 'profile/' + ad.user_id }">Coach profile</b-button>
                               </div>
                             </div>
                           </div>
@@ -101,7 +103,7 @@
                         <h6><b>Date of coaching</b></h6>
                         <div>{{ad.coaching_date}}</div>
                         <br>
-                        <h6><b>Duration : </b> {{ad.duration}} hours</h6>
+                        <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
                       </div>
                       <div class="container col-md-4 text-left">
                         <h6><b>Price</b></h6>
@@ -152,6 +154,9 @@ export default {
     },
     showAlert () {
       this.dismissCountDown = this.dismissSecs
+    },
+    deleteAd (id) {
+      this.$store.dispatch('deleteAd', id)
     }
   },
   computed: {

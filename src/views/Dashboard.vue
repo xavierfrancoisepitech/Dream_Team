@@ -68,15 +68,395 @@
                 </div>
             </form>
         </div>
+
+        <div class="container emp-profile">
+          <h4>Sensei dashboard</h4>
+          <div>
+            <b-tabs>
+              <b-tab active>
+                <template #title>
+                  <b class="text-success">Posted ads</b>
+                </template>
+                <div v-for="ad in ads" :key="ad.id">
+                  <div v-if="(!(ad.pending === 1)) && (ad.user_id === authuser.id)">
+                    <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="mt-3 mb-3 p-3 bglight">
+                      <b-card-text>
+                        <div class="row">
+                          <div class="container col-md-4 text-left">
+                            <div v-for="user in users" :key="user.id">
+                              <div v-if="ad.user_id === user.id">
+                                <h6><b>{{user.name}}</b></h6>
+                                  <h5 v-if="user.verified_coach === 1">
+                                          <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
+                                  </h5>
+                                <div v-for="rank in ranks" :key="rank.id">
+                                  <div v-if="user.rank_id === rank.id">
+                                    <h6><b>{{rank.name}}</b>
+                                      <img :src="rank.image" height="50" width="50">
+                                    </h6>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="container col-md-4 text-left">
+                            <h6><b>Description</b></h6>
+                            <div>{{ad.description}}</div>
+                            <br>
+                            <h6><b>Date of coaching</b></h6>
+                            <div>{{ad.coaching_date}}</div>
+                            <br>
+                            <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
+                          </div>
+                          <div class="container col-md-4 text-left">
+                            <h6><b>Price</b></h6>
+                            <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
+                            <br>
+                              <div>
+                                <!-- Using modifiers -->
+                                <b-button v-b-toggle.collapse-2 class="mt-5 btn btn-info"><b>Edit</b></b-button>
+                              </div>
+                            <button class="btn btn-danger mt-1" @click= "deleteAd(ad.id)"><b>Delete</b></button>
+                          </div>
+                        </div>
+                      </b-card-text>
+                    </b-card>
+                    <!-- Element to collapse -->
+                                <b-collapse id="collapse-2">
+                                  <form>
+                                    <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                        <div>
+                                          <label for="example-datepicker">Choose a date</label>
+                                          <b-form-datepicker id="example-datepicker" v-model="editForm.coaching_date" class="mb-2"></b-form-datepicker>
+
+                                        </div>
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                        <div>
+                                          <label for="demo-sb">Duration in hours</label>
+                                          <b-form-spinbutton id="demo-sb" v-model="editForm.duration" min="1" max="10"></b-form-spinbutton>
+
+                                        </div>
+                                      </div>
+                                      <div class="form-group col-md-6 mx-auto">
+                                        <div>
+                                          <label for="demo-sb">Hourly rate <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</label>
+                                          <b-form-spinbutton id="demo-sb" v-model="editForm.hourly_rate" min="1" max="10"></b-form-spinbutton>
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="inputAddress">Description</label>
+                                      <input type="text" class="form-control" id="inputAddress" v-model="editForm.description" :placeholder="ad.description">
+
+                                    </div>
+                                    <button class="btn btn-primary" @click="editAd(ad.id)">Edit Ad</button>
+                                  </form>
+                                </b-collapse>
+                  </div>
+                </div>
+              </b-tab>
+
+              <b-tab>
+                <template #title>
+                  <b class="text-success">Accepted coachings</b>
+                </template>
+                <div v-for="ad in ads" :key="ad.id">
+                  <div v-if="(!(ad.pending === 0)) && (ad.user_id === authuser.id) && (ad.finished === 0)">
+                    <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="mt-3 mb-3 p-3 bglight">
+                      <b-card-text>
+                        <div class="row">
+                          <div class="container col-md-4 text-left">
+                            <div v-for="user in users" :key="user.id">
+                              <div v-if="ad.user_id === user.id">
+                                <h6><b>{{user.name}}</b></h6>
+                                  <h5 v-if="user.verified_coach === 1">
+                                          <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
+                                  </h5>
+                                <div v-for="rank in ranks" :key="rank.id">
+                                  <div v-if="user.rank_id === rank.id">
+                                    <h6><b>{{rank.name}}</b>
+                                      <img :src="rank.image" height="50" width="50">
+                                    </h6>
+                                  </div>
+                                  <div v-if="ad.student_rank === rank.id">
+                                    <br>
+                                    <h6><b>Student rank :</b></h6>
+                                    <h6><b>{{rank.name}}</b>
+                                      <img :src="rank.image" height="50" width="50">
+                                    </h6>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="container col-md-4 text-left">
+                            <h6><b>Description</b></h6>
+                            <div>{{ad.description}}</div>
+                            <br>
+                            <h6><b>Date of coaching</b></h6>
+                            <div>{{ad.coaching_date}}</div>
+                            <br>
+                            <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
+                          </div>
+                          <div class="container col-md-4 text-left">
+                            <h6><b>Price</b></h6>
+                            <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
+                            <br>
+                            <button class="btn btn-primary mt-5"><b>Coaching done</b></button>
+                            <button class="btn btn-info mt-1"><b>Mail student</b></button>
+                          </div>
+                        </div>
+                      </b-card-text>
+                    </b-card>
+                  </div>
+                </div>
+              </b-tab>
+
+              <b-tab>
+                <template #title>
+                  <b class="text-success">History coachings</b>
+                </template>
+                <div v-for="ad in ads" :key="ad.id">
+                  <div v-if="(!(ad.pending === 0)) && (ad.user_id === authuser.id) && (ad.finished === 1)">
+                    <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="mt-3 mb-3 p-3 bglight">
+                      <b-card-text>
+                        <div class="row">
+                          <div class="container col-md-4 text-left">
+                            <div v-for="user in users" :key="user.id">
+                              <div v-if="ad.user_id === user.id">
+                                <h6><b>{{user.name}}</b></h6>
+                                  <h5 v-if="user.verified_coach === 1">
+                                          <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
+                                  </h5>
+                                <div v-for="rank in ranks" :key="rank.id">
+                                  <div v-if="user.rank_id === rank.id">
+                                    <h6><b>{{rank.name}}</b>
+                                      <img :src="rank.image" height="50" width="50">
+                                    </h6>
+                                  </div>
+                                  <div v-if="ad.student_rank === rank.id">
+                                    <br>
+                                    <h6><b>Student rank :</b></h6>
+                                    <h6><b>{{rank.name}}</b>
+                                      <img :src="rank.image" height="50" width="50">
+                                    </h6>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="container col-md-4 text-left">
+                            <h6><b>Description</b></h6>
+                            <div>{{ad.description}}</div>
+                            <br>
+                            <h6><b>Date of coaching</b></h6>
+                            <div>{{ad.coaching_date}}</div>
+                            <br>
+                            <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
+                          </div>
+                          <div class="container col-md-4 text-left">
+                            <h6><b>Price</b></h6>
+                            <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
+                            <br>
+                            <h6><b>Ad rating</b></h6>
+                            <div>{{ad.ad_rating}}/5</div>
+                          </div>
+                        </div>
+                      </b-card-text>
+                    </b-card>
+                  </div>
+                </div>
+              </b-tab>
+            </b-tabs>
+          </div>
+        </div>
+
+        <div class="container emp-profile">
+          <h4>Student dashboard</h4>
+          <div>
+            <b-tabs>
+              <b-tab active>
+                <template #title>
+                  <b class="text-info">Current classes</b>
+                </template>
+                <div v-for="ad in ads" :key="ad.id">
+                  <div v-if="((ad.pending === 1)) && (ad.student_id === authuser.id) && (ad.finished === 0)">
+                    <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="mt-3 mb-3 p-3 bglight">
+                      <b-card-text>
+                        <div class="row">
+                          <div class="container col-md-4 text-left">
+                            <div v-for="user in users" :key="user.id">
+                              <div v-if="ad.user_id === user.id">
+                                <h6><b>{{user.name}}</b></h6>
+                                  <h5 v-if="user.verified_coach === 1">
+                                          <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
+                                  </h5>
+                                <div v-for="rank in ranks" :key="rank.id">
+                                  <div v-if="user.rank_id === rank.id">
+                                    <h6><b>{{rank.name}}</b>
+                                      <img :src="rank.image" height="50" width="50">
+                                    </h6>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="container col-md-4 text-left">
+                            <h6><b>Description</b></h6>
+                            <div>{{ad.description}}</div>
+                            <br>
+                            <h6><b>Date of coaching</b></h6>
+                            <div>{{ad.coaching_date}}</div>
+                            <br>
+                            <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
+                          </div>
+                          <div class="container col-md-4 text-left">
+                            <h6><b>Price</b></h6>
+                            <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
+                            <br>
+                            <button class="btn btn-info mt-5"><b>Mail the sensei</b></button>
+                          </div>
+                        </div>
+                      </b-card-text>
+                    </b-card>
+                  </div>
+                </div>
+              </b-tab>
+
+              <b-tab>
+                <template #title>
+                  <b class="text-info">Classes to rate</b>
+                </template>
+                <div v-for="ad in ads" :key="ad.id">
+                  <div v-if="((ad.pending === 1)) && (ad.student_id === authuser.id) && (ad.rated === 0) && (ad.finished === 1)">
+                    <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="mt-3 mb-3 p-3 bglight">
+                      <b-card-text>
+                        <div class="row">
+                          <div class="container col-md-4 text-left">
+                            <div v-for="user in users" :key="user.id">
+                              <div v-if="ad.user_id === user.id">
+                                <h6><b>{{user.name}}</b></h6>
+                                  <h5 v-if="user.verified_coach === 1">
+                                          <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
+                                  </h5>
+                                <div v-for="rank in ranks" :key="rank.id">
+                                  <div v-if="user.rank_id === rank.id">
+                                    <h6><b>{{rank.name}}</b>
+                                      <img :src="rank.image" height="50" width="50">
+                                    </h6>
+                                    <button class="btn btn-info mb-1"><b>Comment sensei profile</b></button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="container col-md-4 text-left">
+                            <h6><b>Description</b></h6>
+                            <div>{{ad.description}}</div>
+                            <br>
+                            <h6><b>Date of coaching</b></h6>
+                            <div>{{ad.coaching_date}}</div>
+                            <br>
+                            <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
+                          </div>
+                          <div class="container col-md-4 text-left">
+                            <h6><b>Price</b></h6>
+                            <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
+                            <br>
+                            <div>
+                              <b-form-rating id="rating-sm" variant="warning" v-model="addrating" size="sm" class="rating bg-transparent"></b-form-rating>
+                              <button class="btn btn-warning text-dark btn-block">Rate class</button>
+                            </div>
+                          </div>
+                        </div>
+                      </b-card-text>
+                    </b-card>
+                  </div>
+                </div>
+              </b-tab>
+
+              <b-tab>
+                <template #title>
+                  <b class="text-info">History classes</b>
+                </template>
+                <div v-for="ad in ads" :key="ad.id">
+                  <div v-if="((ad.pending === 1)) && (ad.student_id === authuser.id) && (ad.rated === 0) && (ad.finished === 1)">
+                    <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="mt-3 mb-3 p-3 bglight">
+                      <b-card-text>
+                        <div class="row">
+                          <div class="container col-md-4 text-left">
+                            <div v-for="user in users" :key="user.id">
+                              <div v-if="ad.user_id === user.id">
+                                <h6><b>{{user.name}}</b></h6>
+                                  <h5 v-if="user.verified_coach === 1">
+                                          <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
+                                  </h5>
+                                <div v-for="rank in ranks" :key="rank.id">
+                                  <div v-if="user.rank_id === rank.id">
+                                    <h6><b>{{rank.name}}</b>
+                                      <img :src="rank.image" height="50" width="50">
+                                    </h6>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="container col-md-4 text-left">
+                            <h6><b>Description</b></h6>
+                            <div>{{ad.description}}</div>
+                            <br>
+                            <h6><b>Date of coaching</b></h6>
+                            <div>{{ad.coaching_date}}</div>
+                            <br>
+                            <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
+                          </div>
+                          <div class="container col-md-4 text-left">
+                            <h6><b>Price</b></h6>
+                            <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
+                            <br>
+                            <h6><b>Ad rating</b></h6>
+                            <div>{{ad.ad_rating}}/5</div>
+                          </div>
+                        </div>
+                      </b-card-text>
+                    </b-card>
+                  </div>
+                </div>
+              </b-tab>
+            </b-tabs>
+          </div>
+        </div>
+
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import User from '../apis/User'
 export default {
   data () {
     return {
-      value: 4
+      value: 4,
+      addrating: '',
+      editForm: {
+        coaching_date: '',
+        duration: '',
+        hourly_rate: '',
+        description: ''
+      }
+    }
+  },
+  methods: {
+    deleteAd (id) {
+      this.$store.dispatch('deleteAd', id)
+        .then(this.$store.dispatch('getAds'))
+    },
+    editAd (id) {
+      this.$store.dispatch('editAd', [id, this.editForm])
+        .then(this.$store.dispatch('getAds'))
     }
   },
   created () {
@@ -86,9 +466,12 @@ export default {
     })
   },
   computed: {
-    authuser () {
-      return this.$store.state.authuser
-    }
+    ...mapState(['ads', 'users', 'ranks', 'authuser'])
+  },
+  mounted () {
+    this.$store.dispatch('getAds')
+    this.$store.dispatch('getUsers')
+    this.$store.dispatch('getRanks')
   }
 }
 </script>
