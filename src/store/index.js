@@ -40,6 +40,16 @@ const actions = {
       hourly_rate: data[1].hourly_rate
     })
   },
+  editProfile ({commit}, data) {
+    axios.put('/users/' + data[0], {
+      description: data[1].description,
+      pedagogy: data[1].pedagogy,
+      twitter_link: data[1].twitter_link,
+      discord_link: data[1].discord_link,
+      opgg_link: data[1].opgg_link,
+      rank_id: data[1].rank_id
+    })
+  },
   coachingDone ({commit}, data) {
     axios.put('/ad/' + data, {
       finished: 1
