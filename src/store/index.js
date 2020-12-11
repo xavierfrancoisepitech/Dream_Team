@@ -77,6 +77,15 @@ const actions = {
         commit('SET_USERS', response.data)
       })
   },
+  addHours ({commit}, data) {
+    axios.put('/users/' + data[0], {
+      hours: state.authuser.hours + data[1]
+    })
+      .then(User.auth().then(response => {
+        commit('SET_USER_DATA', response.data)
+      }))
+  },
+
   getRanks ({commit}) {
     axios.get('/rank')
       .then(response => {

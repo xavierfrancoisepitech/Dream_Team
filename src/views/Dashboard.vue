@@ -218,7 +218,7 @@
                             <h6><b>Price</b></h6>
                             <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
                             <br>
-                            <button class="btn btn-primary mt-5" @click="coachingDone({'cost' : (ad.hourly_rate)*(ad.duration), 'id' : ad.id})"><b>Coaching done</b></button>
+                            <button class="btn btn-primary mt-5" @click="coachingDone({'cost' : (ad.hourly_rate)*(ad.duration), 'id' : ad.id, 'hours': ad.duration})"><b>Coaching done</b></button>
                             <button class="btn btn-info mt-1"><b>Mail student</b></button>
                           </div>
                         </div>
@@ -487,6 +487,7 @@ export default {
       this.$store.dispatch('coachingDone', data.id)
         .then(this.$store.dispatch('getAds'))
         .then(this.$store.dispatch('addGems', [this.$store.state.authuser.id, data.cost]))
+        .then(this.$store.dispatch('addHours', [this.$store.state.authuser.id, data.hours]))
     },
     commentAd (id) {
       this.$store.dispatch('commentAd', [id, this.comment])
