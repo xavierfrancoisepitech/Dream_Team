@@ -87,9 +87,10 @@ export default {
 </script>
 
 <style>
-.router-link-exact-active {
-  color: #ffffff !important;
-  transition: all 0.25s;
+.router-link-exact-active.nav-item {
+  color: #27cda6 !important;
+  border-bottom: solid #27cda6 2px;
+  font-weight: 600;
 }
 .navbar {
   background-color: #2c3e50;
