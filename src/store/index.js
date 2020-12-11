@@ -53,6 +53,18 @@ const actions = {
         commit('SET_ADS', response.data)
       })
   },
+  orderByDurationAsc ({commit}) {
+    axios.get('/user/durationAsc')
+      .then(response => {
+        commit('SET_ADS', response.data)
+      })
+  },
+  orderByDurationDesc ({commit}) {
+    axios.get('/user/durationDesc')
+      .then(response => {
+        commit('SET_ADS', response.data)
+      })
+  },
   deleteAd ({commit}, data) {
     axios.delete('/ad/' + data)
   },

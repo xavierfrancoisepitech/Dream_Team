@@ -27,6 +27,8 @@
             <b-button variant="outline-info mt-1" @click="orderByPriceDesc()">Order by Descending Price</b-button>
             <b-button variant="outline-info mt-1" @click="orderByDateAsc()">Order by Nearest Coaching Date</b-button>
             <b-button variant="outline-info mt-1" @click="orderByDateDesc()">Order by Furthest Coaching Date</b-button>
+            <b-button variant="outline-info mt-1" @click="orderByDurationAsc()">Order by Shortest coaching</b-button>
+            <b-button variant="outline-info mt-1" @click="orderByDurationDesc()">Order by Longest coaching</b-button>
           </div>
       </div>
 
@@ -173,6 +175,12 @@ export default {
     },
     orderByDateDesc () {
       this.$store.dispatch('orderByDateDesc')
+    },
+    orderByDurationAsc () {
+      this.$store.dispatch('orderByDurationAsc')
+    },
+    orderByDurationDesc () {
+      this.$store.dispatch('orderByDurationDesc')
     }
   },
   computed: {
