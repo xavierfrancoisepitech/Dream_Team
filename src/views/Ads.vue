@@ -20,11 +20,14 @@
 
     <div class="row">
       <div class="container col-md-3 pt-4 pb-4 pl-4 pr-0">
-          <div class="card" style="height: 700px"> Search zone</div>
+          <div class="card" style="height: 700px">
+            Search zone
+            <b-input type="text" v-model="search" placeholder="Search for an ad"/>
+          </div>
       </div>
 
       <div class="container col-md-9 p-4">
-          <div v-for="ad in ads" :key="ad.id">
+          <div v-for="ad in filteredAds" :key="ad.id">
             <div v-if="authuser">
               <div v-if="(!(ad.pending === 1))">
                 <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="mb-3 p-3">
@@ -131,7 +134,8 @@ export default {
     return {
       dismissSecs: 10,
       dismissCountDown: 0,
-      showDismissibleAlert: false
+      showDismissibleAlert: false,
+      search: ''
     }
   },
   methods: {
@@ -156,7 +160,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['ads', 'users', 'ranks', 'authuser'])
+    ...mapState(['ads', 'users', 'ranks', 'authuser']),
+    filteredAds () {
+      return this.ads.filter(ad => ad.description.toLowerCase().includes(this.search.toLowerCase()))
+    }
   },
   mounted () {
     this.$store.dispatch('getAds')
