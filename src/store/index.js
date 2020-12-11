@@ -71,6 +71,12 @@ const actions = {
         commit('SET_USERS', response.data)
       })
   },
+  getUser ({commit}, id) {
+    axios.get('/users/' + id)
+      .then(response => {
+        commit('SET_USERS', response.data)
+      })
+  },
   getRanks ({commit}) {
     axios.get('/rank')
       .then(response => {

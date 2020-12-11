@@ -20,7 +20,13 @@
                                     <h5 v-if="authuser.verified_coach === 1">
                                       <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
                                     </h5>
-                                      <img class = "mt-3" src="../assets/ranks/9.png" height="50px"/>
+                                      <div v-for="rank in ranks" :key="rank.id">
+                                      <div v-if="authuser.rank_id === rank.id">
+                                        <h5><b>{{rank.name}}</b>
+                                          <img :src="rank.image" height="70" width="70">
+                                        </h5>
+                                      </div>
+                                    </div>
                         </div>
                     </div>
                     <div class="col-md-2 mt-2 ">
@@ -59,9 +65,16 @@
                           {{ authuser.pedagogy }}
                         </b-card-text>
                       </b-card>
-                      <b-card title="Comments" class="bglight mt-5">
+                      <b-card title="Rates and comments" class="bglight mt-5">
                         <b-card-text>
-                          {{ authuser.description }}
+                          <div v-for="ad in ads" :key="'n' + ad.id">
+                            <div class="card my-1 p-2 " v-if="authuser.id === ad.user_id">
+                              <div class="row">
+                                <div class="col-4">Rate : <b>{{ ad.ad_rating }}/5 <i class="fas fa-star text-warning"></i></b></div>
+                                <div class="col-8">"{{ ad.comments }}"</div>
+                              </div>
+                            </div>
+                          </div>
                         </b-card-text>
                       </b-card>
                     </div>
@@ -115,8 +128,8 @@
                               <div>
                                 <!-- Using modifiers -->
                                 <b-button v-b-toggle.collapse-2 class="mt-5 btn btn-info"><b>Edit</b></b-button>
+                                <button class="btn btn-danger mt-5" @click= "deleteAd(ad.id)"><b>Delete</b></button>
                               </div>
-                            <button class="btn btn-danger mt-1" @click= "deleteAd(ad.id)"><b>Delete</b></button>
                           </div>
                         </div>
                       </b-card-text>
@@ -142,7 +155,7 @@
                                       <div class="form-group col-md-6 mx-auto">
                                         <div>
                                           <label for="demo-sb">Hourly rate <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</label>
-                                          <b-form-spinbutton id="demo-sb" v-model="editForm.hourly_rate" min="1" max="10"></b-form-spinbutton>
+                                          <b-form-spinbutton id="demo-sb" v-model="editForm.hourly_rate" min="1" max="1000"></b-form-spinbutton>
 
                                         </div>
                                       </div>
@@ -299,6 +312,7 @@
                                     <h6><b>{{rank.name}}</b>
                                       <img :src="rank.image" height="50" width="50">
                                     </h6>
+                                    <a :href="'mailto:'+ user.email" class="btn btn-info mt-4"><i class="fas fa-envelope"></i> Mail the sensei</a>
                                   </div>
                                 </div>
                               </div>
@@ -317,7 +331,6 @@
                             <h6><b>Price</b></h6>
                             <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
                             <br>
-                            <button class="btn btn-info mt-5"><b>Mail the sensei</b></button>
                           </div>
                         </div>
                       </b-card-text>

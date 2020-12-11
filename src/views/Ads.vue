@@ -135,12 +135,11 @@ export default {
     }
   },
   methods: {
-    notConnected () {
-      window.alert('Please login to book an Ad !')
-      this.$router.push('login')
-    },
     async bookIt (value) {
-      if (this.$store.state.authuser.wallet + value.cost <= 0) {
+      if (!this.$store.state.authuser) {
+        window.alert('Please login to book an Ad !')
+        this.$router.push('login')
+      } else if (this.$store.state.authuser.wallet + value.cost <= 0) {
         alert('Please head to the Wallet shop to buy some gems before booking !')
         this.$router.push('Market')
       } else {
@@ -154,9 +153,6 @@ export default {
     },
     showAlert () {
       this.dismissCountDown = this.dismissSecs
-    },
-    deleteAd (id) {
-      this.$store.dispatch('deleteAd', id)
     }
   },
   computed: {
