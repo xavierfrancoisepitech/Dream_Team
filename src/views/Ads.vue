@@ -22,7 +22,11 @@
       <div class="container col-md-3 pt-4 pb-4 pl-4 pr-0">
           <div class="card" style="height: 700px">
             Search zone
-            <b-input type="text" v-model="search" placeholder="Search for an ad"/>
+            <b-input variant="outline-info mb-2" type="text" v-model="search" placeholder="Search for an ad"/><br>
+            <b-button variant="outline-info mt-2" @click="orderByPriceAsc()">Order by Ascending Price</b-button>
+            <b-button variant="outline-info mt-1" @click="orderByPriceDesc()">Order by Descending Price</b-button>
+            <b-button variant="outline-info mt-1" @click="orderByDateAsc()">Order by Nearest Coaching Date</b-button>
+            <b-button variant="outline-info mt-1" @click="orderByDateDesc()">Order by Furthest Coaching Date</b-button>
           </div>
       </div>
 
@@ -55,13 +59,13 @@
                         <h6><b>Description</b></h6>
                         <div>{{ad.description}}</div>
                         <br>
-                        <h6><b>Date of coaching</b></h6>
+                        <h6><b>Coaching date</b></h6>
                         <div>{{ad.coaching_date}}</div>
                         <br>
                         <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
                       </div>
                       <div class="container col-md-4 text-left">
-                        <h6><b>Price</b></h6>
+                        <h6><b>Rate</b></h6>
                         <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
                         <br>
                         <div v-if="!(authuser.id === ad.user_id)">
@@ -103,13 +107,13 @@
                         <h6><b>Description</b></h6>
                         <div>{{ad.description}}</div>
                         <br>
-                        <h6><b>Date of coaching</b></h6>
+                        <h6><b>Coaching date</b></h6>
                         <div>{{ad.coaching_date}}</div>
                         <br>
                         <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
                       </div>
                       <div class="container col-md-4 text-left">
-                        <h6><b>Price</b></h6>
+                        <h6><b>Rate</b></h6>
                         <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
                         <br>
                         <button class="btn btn-primary mt-5 btn-block " @click="bookIt({'cost' : -(ad.hourly_rate)*(ad.duration), 'id' : ad.id}); showAlert();"><b> Book it ! {{(ad.hourly_rate)*(ad.duration)}} </b><img class="pb-1" src="../assets/gem.svg" height="20px" alt=""></button>
@@ -157,6 +161,18 @@ export default {
     },
     showAlert () {
       this.dismissCountDown = this.dismissSecs
+    },
+    orderByPriceAsc () {
+      this.$store.dispatch('orderByPriceAsc')
+    },
+    orderByPriceDesc () {
+      this.$store.dispatch('orderByPriceDesc')
+    },
+    orderByDateAsc () {
+      this.$store.dispatch('orderByDateAsc')
+    },
+    orderByDateDesc () {
+      this.$store.dispatch('orderByDateDesc')
     }
   },
   computed: {
