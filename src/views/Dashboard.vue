@@ -205,7 +205,7 @@
                             <h6><b>Price</b></h6>
                             <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
                             <br>
-                            <button class="btn btn-primary mt-5"><b>Coaching done</b></button>
+                            <button class="btn btn-primary mt-5" @click="coachingDone({'cost' : (ad.hourly_rate)*(ad.duration), 'id' : ad.id})"><b>Coaching done</b></button>
                             <button class="btn btn-info mt-1"><b>Mail student</b></button>
                           </div>
                         </div>
@@ -347,7 +347,7 @@
                                     <h6><b>{{rank.name}}</b>
                                       <img :src="rank.image" height="50" width="50">
                                     </h6>
-                                    <button class="btn btn-info mb-1"><b>Comment sensei profile</b></button>
+                                    <b-button v-b-toggle.collapse-3 class="btn btn-info mb-1"><b>Comment the class</b></b-button>
                                   </div>
                                 </div>
                               </div>
@@ -368,12 +368,23 @@
                             <br>
                             <div>
                               <b-form-rating id="rating-sm" variant="warning" v-model="addrating" size="sm" class="rating bg-transparent"></b-form-rating>
-                              <button class="btn btn-warning text-dark btn-block">Rate class</button>
+                              <button class="btn btn-warning text-dark btn-block" @click="rateAd(ad.id)">Rate class</button>
                             </div>
                           </div>
                         </div>
                       </b-card-text>
                     </b-card>
+
+                    <!-- Element to collapse -->
+                                <b-collapse id="collapse-3">
+                                  <form>
+                                    <div class="form-group">
+                                      <label for="inputAddress">Comment</label>
+                                      <input type="text" class="form-control" id="inputAddress" v-model="comment" placeholder="Let the sensei know what you think about this coaching">
+                                    </div>
+                                    <button class="btn btn-primary" v-b-toggle.collapse-3 @click="commentAd(ad.id)">Send comment</button>
+                                  </form>
+                                </b-collapse>
                   </div>
                 </div>
               </b-tab>
@@ -383,7 +394,7 @@
                   <b class="text-info">History classes</b>
                 </template>
                 <div v-for="ad in ads" :key="ad.id">
-                  <div v-if="((ad.pending === 1)) && (ad.student_id === authuser.id) && (ad.rated === 0) && (ad.finished === 1)">
+                  <div v-if="((ad.pending === 1)) && (ad.student_id === authuser.id) && (ad.rated === 1) && (ad.finished === 1)">
                     <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="mt-3 mb-3 p-3 bglight">
                       <b-card-text>
                         <div class="row">
@@ -440,13 +451,14 @@ export default {
   data () {
     return {
       value: 4,
-      addrating: '',
+      addrating: 0,
       editForm: {
         coaching_date: '',
-        duration: '',
-        hourly_rate: '',
+        duration: 0,
+        hourly_rate: 0,
         description: ''
-      }
+      },
+      comment: ''
     }
   },
   methods: {
@@ -456,6 +468,20 @@ export default {
     },
     editAd (id) {
       this.$store.dispatch('editAd', [id, this.editForm])
+        .then(this.$store.dispatch('getAds'))
+    },
+    coachingDone (data) {
+      this.$store.dispatch('coachingDone', data.id)
+        .then(this.$store.dispatch('getAds'))
+        .then(this.$store.dispatch('addGems', [this.$store.state.authuser.id, data.cost]))
+    },
+    commentAd (id) {
+      this.$store.dispatch('commentAd', [id, this.comment])
+        .then(this.$store.dispatch('getAds'))
+        .then(alert('Commentaire envoyé !'))
+    },
+    rateAd (id) {
+      this.$store.dispatch('rateAd', [id, this.addrating])
         .then(this.$store.dispatch('getAds'))
     }
   },

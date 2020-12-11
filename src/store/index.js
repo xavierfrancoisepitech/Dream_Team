@@ -40,6 +40,23 @@ const actions = {
       hourly_rate: data[1].hourly_rate
     })
   },
+  coachingDone ({commit}, data) {
+    axios.put('/ad/' + data, {
+      finished: 1
+    })
+  },
+  commentAd ({commit}, data) {
+    axios.put('/ad/' + data[0], {
+      comments: data[1]
+    })
+  },
+  rateAd ({commit}, data) {
+    console.log(data)
+    axios.put('/ad/' + data[0], {
+      ad_rating: data[1],
+      rated: 1
+    })
+  },
   addGems ({commit}, data) {
     axios.put('/users/' + data[0], {
       wallet: state.authuser.wallet + data[1]
