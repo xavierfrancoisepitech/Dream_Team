@@ -1,5 +1,6 @@
 <template>
 <div>
+  <div class="scroll-to-me"> Hello guys</div>
   <div class="container-fluid">
       <b-alert
       :show="dismissCountDown"
@@ -19,29 +20,33 @@
     </b-alert>
 
     <div class="row">
-      <div class="container col-md-3 pt-4 pb-4 pl-4 pr-0">
-          <div class="card" style="height: 700px">
-            Search zone
-            <b-input variant="outline-info mb-2" type="text" v-model="search" placeholder="Search for an ad"/><br>
-            <b-button variant="outline-info mt-2" @click="orderBy({'order' : 'hourly_rate', 'type' : 'asc'})">Order by Ascending Price</b-button>
-            <b-button variant="outline-info mt-1" @click="orderBy({'order' : 'hourly_rate', 'type' : 'desc'})">Order by Descending Price</b-button>
-            <b-button variant="outline-info mt-1" @click="orderBy({'order' : 'coaching_date', 'type' : 'asc'})">Order by Nearest Coaching Date</b-button>
-            <b-button variant="outline-info mt-1" @click="orderBy({'order' : 'coaching_date', 'type' : 'desc'})">Order by Furthest Coaching Date</b-button>
-            <b-button variant="outline-info mt-1" @click="orderBy({'order' : 'duration', 'type' : 'asc'})">Order by Shortest coaching</b-button>
-            <b-button variant="outline-info mt-1" @click="orderBy({'order' : 'duration', 'type' : 'desc'})">Order by Longest coaching</b-button>
+      <div class="container col-lg-3 pt-4 pb-4 pl-4 pr-4 pr-sm-0">
+          <div class="card p-3" style="height: 300px">
+            <div class="my-auto">
+              <b-input variant="outline-info" class="mb-2" type="text" v-model="search" placeholder="Search for an ad"/>
+
+              <b-dropdown id="dropdown-1" text="Sort By" variant="outline-info mt-1" block menu-class="w-100">
+                <b-dropdown-item @click="orderBy({'order' : 'hourly_rate', 'type' : 'asc'})">Ascending Hourly Price</b-dropdown-item>
+                <b-dropdown-item @click="orderBy({'order' : 'hourly_rate', 'type' : 'desc'})">Descending Hourly Price</b-dropdown-item>
+                <b-dropdown-item @click="orderBy({'order' : 'coaching_date', 'type' : 'asc'})">Nearest Coaching Date</b-dropdown-item>
+                <b-dropdown-item @click="orderBy({'order' : 'coaching_date', 'type' : 'desc'})">Furthest Coaching Date</b-dropdown-item>
+                <b-dropdown-item @click="orderBy({'order' : 'duration', 'type' : 'asc'})">Shortest coaching</b-dropdown-item>
+                <b-dropdown-item @click="orderBy({'order' : 'duration', 'type' : 'desc'})">Longest coaching</b-dropdown-item>
+              </b-dropdown>
           </div>
-      </div>
+        </div>
+    </div>
 
       <div class="container col-md-9 p-4">
           <div v-for="ad in filteredAds" :key="ad.id">
-            <div v-if="authuser">
               <div v-if="(!(ad.pending === 1))">
-                <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="mb-3 p-3">
+                <b-card class="mb-3 p-3">
                   <b-card-text>
                     <div class="row">
-                      <div class="container col-md-4 text-left">
+                      <div class="container col-lg-4 text-center">
                         <div v-for="user in users" :key="user.id">
                           <div v-if="ad.user_id === user.id">
+                            <img :src="user.avatar" class="rounded-circle mb-3" alt="">
                             <h6><b>{{user.name}}</b></h6>
                               <h5 v-if="user.verified_coach === 1">
                                       <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
@@ -51,13 +56,13 @@
                                 <h6><b>{{rank.name}}</b>
                                   <img :src="rank.image" height="50" width="50">
                                 </h6>
-                                <b-button variant="outline-info" :to="{ path: 'profile/' + ad.user_id }">Coach profile</b-button>
+                                <b-button class="mb-2 mb-sm-0" variant="outline-info" :to="{ path: 'profile/' + ad.user_id }"><i class="far fa-user"></i> Coach profile</b-button>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="container col-md-4 text-left">
+                      <div class="container col-lg-5 text-left">
                         <h6><b>Description</b></h6>
                         <div>{{ad.description}}</div>
                         <br>
@@ -66,65 +71,36 @@
                         <br>
                         <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
                       </div>
-                      <div class="container col-md-4 text-left">
+                      <div class="container col-lg-3 text-left">
                         <h6><b>Rate</b></h6>
                         <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
                         <br>
-                        <div v-if="!(authuser.id === ad.user_id)">
-                        <button class="btn btn-primary mt-5 btn-block " @click="bookIt({'cost' : -(ad.hourly_rate)*(ad.duration), 'id' : ad.id}); showAlert();"><b> Book it ! {{(ad.hourly_rate)*(ad.duration)}} </b><img class="pb-1" src="../assets/gem.svg" height="20px" alt=""></button>
+
+                        <div v-if="authuser">
+                          <div v-if="authuser.id === ad.user_id">
+                            <button class="btn btn-primary mt-5 btn-block" disabled>You posted this ad</button>
+                          </div>
+                          <div v-else>
+                            <button class="btn btn-primary mt-5 btn-block "
+                              @click="bookIt({'cost' : -(ad.hourly_rate)*(ad.duration), 'id' : ad.id}); showAlert(); scrollToElement();">
+                                <b> Book it ! {{(ad.hourly_rate)*(ad.duration)}} </b>
+                                <img class="pb-1" src="../assets/gem.svg" height="20px" alt="">
+                              </button>
+                          </div>
                         </div>
                         <div v-else>
-                          <button class="btn btn-primary mt-5 btn-block" disabled>You posted this ad</button>
+                          <button class="btn btn-primary mt-5 btn-block "
+                              @click="bookIt({'cost' : -(ad.hourly_rate)*(ad.duration), 'id' : ad.id}); showAlert(); scrollToElement();">
+                                <b> Book it ! {{(ad.hourly_rate)*(ad.duration)}} </b>
+                                <img class="pb-1" src="../assets/gem.svg" height="20px" alt="">
+                              </button>
                         </div>
+
                       </div>
                     </div>
                   </b-card-text>
                 </b-card>
               </div>
-            </div>
-            <div v-else>
-              <div v-if="!(ad.pending === 1)">
-                <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="mb-3 p-3">
-                  <b-card-text>
-                    <div class="row">
-                      <div class="container col-md-4 text-left">
-                        <div v-for="user in users" :key="user.id">
-                          <div v-if="ad.user_id === user.id">
-                            <h6><b>{{user.name}}</b></h6>
-                              <h5 v-if="user.verified_coach === 1">
-                                      <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
-                              </h5>
-                            <div v-for="rank in ranks" :key="rank.id">
-                              <div v-if="user.rank_id === rank.id">
-                                <h6><b>{{rank.name}}</b>
-                                  <img :src="rank.image" height="50" width="50">
-                                </h6>
-                                <b-button variant="outline-info" :to="{ path: 'profile/' + ad.user_id }">Coach profile</b-button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="container col-md-4 text-left">
-                        <h6><b>Description</b></h6>
-                        <div>{{ad.description}}</div>
-                        <br>
-                        <h6><b>Coaching date</b></h6>
-                        <div>{{ad.coaching_date}}</div>
-                        <br>
-                        <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
-                      </div>
-                      <div class="container col-md-4 text-left">
-                        <h6><b>Rate</b></h6>
-                        <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
-                        <br>
-                        <button class="btn btn-primary mt-5 btn-block " @click="bookIt({'cost' : -(ad.hourly_rate)*(ad.duration), 'id' : ad.id}); showAlert();"><b> Book it ! {{(ad.hourly_rate)*(ad.duration)}} </b><img class="pb-1" src="../assets/gem.svg" height="20px" alt=""></button>
-                      </div>
-                    </div>
-                  </b-card-text>
-                </b-card>
-              </div>
-            </div>
           </div>
       </div>
     </div>
@@ -166,6 +142,13 @@ export default {
     },
     orderBy (data) {
       this.$store.dispatch('orderBy', data)
+    },
+    scrollToElement () {
+      const el = this.$el.getElementsByClassName('scroll-to-me')[0]
+
+      if (el) {
+        el.scrollIntoView()
+      }
     }
   },
   computed: {

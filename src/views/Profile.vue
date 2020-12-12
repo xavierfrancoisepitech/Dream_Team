@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
-                            <img src="https://picsum.photos/200" class="rounded-circle" alt=""/>
+                            <img :src="users.data.avatar" class="rounded-circle" alt=""/>
                         </div>
                     </div>
                     <div class="col-md-6 my-md-auto">
@@ -79,12 +79,13 @@
           <div v-for="ad in ads" :key="ad.id">
             <div v-if="(!(ad.pending === 1) && (ad.user_id === users.data.id))">
               <div class="d-none">{{hasAds = true}}</div>
-                  <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="my-3 p-3 bglight">
+                  <b-card class="my-3 p-3 bglight">
                     <b-card-text>
                       <div class="row">
-                        <div class="container col-md-4 text-left">
+                        <div class="container col-lg-4 text-center">
                           <div v-for="user in users" :key="user.id">
                             <div v-if="ad.user_id === user.id">
+                              <img :src="user.avatar" class="rounded-circle mb-3" alt="">
                               <h6><b>{{user.name}}</b></h6>
                                 <h5 v-if="user.verified_coach === 1">
                                         <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
@@ -99,7 +100,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="container col-md-4 text-left">
+                        <div class="container col-lg-5 text-left">
                           <h6><b>Description</b></h6>
                           <div>{{ad.description}}</div>
                           <br>
@@ -108,7 +109,7 @@
                           <br>
                           <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
                         </div>
-                        <div class="container col-md-4 text-left">
+                        <div class="container col-lg-3 text-left">
                           <h6><b>Price</b></h6>
                           <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
                           <br>

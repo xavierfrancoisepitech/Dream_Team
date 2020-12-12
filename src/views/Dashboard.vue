@@ -5,10 +5,27 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
-                            <img src="https://picsum.photos/200" class="rounded-circle" alt=""/>
-                            <div class="file btn btn-lg btn-primary">
-                                Change Photo
-                                <input type="file" name="file"/>
+                            <img :src="authuser.avatar" class="rounded-circle" alt="">
+
+                            <div>
+                              <b-dropdown
+                                text="Change avatar"
+                                variant="primary"
+                                class="m-2"
+                              >
+                                <b-dropdown-item @click="setAvatar('Aatrox')"> <img src="http://ddragon.leagueoflegends.com/cdn/10.25.1/img/champion/Aatrox.png" class="rounded-circle w-50" alt=""> Aatrox</b-dropdown-item>
+                                <b-dropdown-item @click="setAvatar('Ahri')"><img src="http://ddragon.leagueoflegends.com/cdn/10.25.1/img/champion/Ahri.png" class="rounded-circle w-50" alt=""> Ahri</b-dropdown-item>
+                                <b-dropdown-item @click="setAvatar('Lucian')"><img src="http://ddragon.leagueoflegends.com/cdn/10.25.1/img/champion/Lucian.png" class="rounded-circle w-50" alt=""> Lucian</b-dropdown-item>
+                                <b-dropdown-item @click="setAvatar('Alistar')"><img src="http://ddragon.leagueoflegends.com/cdn/10.25.1/img/champion/Alistar.png" class="rounded-circle w-50" alt=""> Alistar</b-dropdown-item>
+                                <b-dropdown-item @click="setAvatar('Amumu')"><img src="http://ddragon.leagueoflegends.com/cdn/10.25.1/img/champion/Amumu.png" class="rounded-circle w-50" alt=""> Amumu</b-dropdown-item>
+                                <b-dropdown-item @click="setAvatar('Leona')"><img src="http://ddragon.leagueoflegends.com/cdn/10.25.1/img/champion/Leona.png" class="rounded-circle w-50" alt=""> Leona</b-dropdown-item>
+                                <b-dropdown-item @click="setAvatar('Soraka')"><img src="http://ddragon.leagueoflegends.com/cdn/10.25.1/img/champion/Soraka.png" class="rounded-circle w-50" alt=""> Soraka</b-dropdown-item>
+                                <b-dropdown-item @click="setAvatar('Tristana')"><img src="http://ddragon.leagueoflegends.com/cdn/10.25.1/img/champion/Tristana.png" class="rounded-circle w-50" alt=""> Tristana</b-dropdown-item>
+                                <b-dropdown-item @click="setAvatar('Ashe')"><img src="http://ddragon.leagueoflegends.com/cdn/10.25.1/img/champion/Ashe.png" class="rounded-circle w-50" alt=""> Ashe</b-dropdown-item>
+                                <b-dropdown-item @click="setAvatar('Yasuo')"><img src="http://ddragon.leagueoflegends.com/cdn/10.25.1/img/champion/Yasuo.png" class="rounded-circle w-50" alt=""> Yasuo</b-dropdown-item>
+                                <b-dropdown-item @click="setAvatar('Ziggs')"><img src="http://ddragon.leagueoflegends.com/cdn/10.25.1/img/champion/Ziggs.png" class="rounded-circle w-50" alt=""> Ziggs</b-dropdown-item>
+
+                              </b-dropdown>
                             </div>
                         </div>
                     </div>
@@ -92,12 +109,13 @@
                 </template>
                 <div v-for="ad in ads" :key="ad.id">
                   <div v-if="(!(ad.pending === 1)) && (ad.user_id === authuser.id)">
-                    <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="mt-3 mb-3 p-3 bglight">
+                    <b-card class="mt-3 mb-3 p-3 bglight">
                       <b-card-text>
                         <div class="row">
-                          <div class="container col-md-4 text-left">
+                          <div class="container col-lg-4 text-center">
                             <div v-for="user in users" :key="user.id">
                               <div v-if="ad.user_id === user.id">
+                                <img :src="user.avatar" class="rounded-circle mb-3" alt="">
                                 <h6><b>{{user.name}}</b></h6>
                                   <h5 v-if="user.verified_coach === 1">
                                           <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
@@ -112,7 +130,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="container col-md-4 text-left">
+                          <div class="container col-lg-5 text-left">
                             <h6><b>Description</b></h6>
                             <div>{{ad.description}}</div>
                             <br>
@@ -121,13 +139,13 @@
                             <br>
                             <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
                           </div>
-                          <div class="container col-md-4 text-left">
+                          <div class="container col-lg-3 text-left">
                             <h6><b>Price</b></h6>
                             <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
                             <br>
                               <div>
                                 <!-- Using modifiers -->
-                                <b-button v-b-toggle.collapse-2 class="mt-5 btn btn-info"><b>Edit</b></b-button>
+                                <b-button v-b-toggle="'collapse-2'"  class="mt-5 btn btn-info"><b>Edit</b></b-button>
                                 <button class="btn btn-danger mt-5" @click= "deleteAd(ad.id)"><b>Delete</b></button>
                               </div>
                           </div>
@@ -162,7 +180,7 @@
                                     </div>
                                     <div class="form-group">
                                       <label for="inputAddress">Description</label>
-                                      <input type="text" class="form-control" id="inputAddress" v-model="editForm.description" :placeholder="ad.description">
+                                      <textarea class="form-control" id="inputAddress" v-model="editForm.description" :placeholder="ad.description" rows="3"/>
 
                                     </div>
                                     <button class="btn btn-primary" @click="editAd(ad.id)">Edit Ad</button>
@@ -178,12 +196,13 @@
                 </template>
                 <div v-for="ad in ads" :key="ad.id">
                   <div v-if="(!(ad.pending === 0)) && (ad.user_id === authuser.id) && (ad.finished === 0)">
-                    <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="mt-3 mb-3 p-3 bglight">
+                    <b-card class="mt-3 mb-3 p-3 bglight">
                       <b-card-text>
                         <div class="row">
-                          <div class="container col-md-4 text-left">
+                          <div class="container col-lg-4 text-center">
                             <div v-for="user in users" :key="user.id">
                               <div v-if="ad.user_id === user.id">
+                                <img :src="user.avatar" class="rounded-circle mb-3" alt="">
                                 <h6><b>{{user.name}}</b></h6>
                                   <h5 v-if="user.verified_coach === 1">
                                           <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
@@ -205,7 +224,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="container col-md-4 text-left">
+                          <div class="container col-lg-5 text-left">
                             <h6><b>Description</b></h6>
                             <div>{{ad.description}}</div>
                             <br>
@@ -214,7 +233,7 @@
                             <br>
                             <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
                           </div>
-                          <div class="container col-md-4 text-left">
+                          <div class="container col-lg-3 text-left">
                             <h6><b>Price</b></h6>
                             <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
                             <br>
@@ -234,12 +253,13 @@
                 </template>
                 <div v-for="ad in ads" :key="ad.id">
                   <div v-if="(!(ad.pending === 0)) && (ad.user_id === authuser.id) && (ad.finished === 1)">
-                    <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="mt-3 mb-3 p-3 bglight">
+                    <b-card class="mt-3 mb-3 p-3 bglight">
                       <b-card-text>
                         <div class="row">
-                          <div class="container col-md-4 text-left">
+                          <div class="container col-lg-4 text-center">
                             <div v-for="user in users" :key="user.id">
                               <div v-if="ad.user_id === user.id">
+                                <img :src="user.avatar" class="rounded-circle mb-3" alt="">
                                 <h6><b>{{user.name}}</b></h6>
                                   <h5 v-if="user.verified_coach === 1">
                                           <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
@@ -261,7 +281,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="container col-md-4 text-left">
+                          <div class="container col-lg-5 text-left">
                             <h6><b>Description</b></h6>
                             <div>{{ad.description}}</div>
                             <br>
@@ -270,7 +290,7 @@
                             <br>
                             <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
                           </div>
-                          <div class="container col-md-4 text-left">
+                          <div class="container col-lg-3 text-left">
                             <h6><b>Price</b></h6>
                             <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
                             <br>
@@ -297,12 +317,13 @@
                 </template>
                 <div v-for="ad in ads" :key="ad.id">
                   <div v-if="((ad.pending === 1)) && (ad.student_id === authuser.id) && (ad.finished === 0)">
-                    <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="mt-3 mb-3 p-3 bglight">
+                    <b-card class="mt-3 mb-3 p-3 bglight">
                       <b-card-text>
                         <div class="row">
-                          <div class="container col-md-4 text-left">
+                          <div class="container col-lg-4 text-center">
                             <div v-for="user in users" :key="user.id">
                               <div v-if="ad.user_id === user.id">
+                                <img :src="user.avatar" class="rounded-circle mb-3" alt="">
                                 <h6><b>{{user.name}}</b></h6>
                                   <h5 v-if="user.verified_coach === 1">
                                           <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
@@ -318,7 +339,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="container col-md-4 text-left">
+                          <div class="container col-lg-5 text-left">
                             <h6><b>Description</b></h6>
                             <div>{{ad.description}}</div>
                             <br>
@@ -327,7 +348,7 @@
                             <br>
                             <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
                           </div>
-                          <div class="container col-md-4 text-left">
+                          <div class="container col-lg-3 text-left">
                             <h6><b>Price</b></h6>
                             <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
                             <br>
@@ -345,12 +366,13 @@
                 </template>
                 <div v-for="ad in ads" :key="ad.id">
                   <div v-if="((ad.pending === 1)) && (ad.student_id === authuser.id) && (ad.rated === 0) && (ad.finished === 1)">
-                    <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="mt-3 mb-3 p-3 bglight">
+                    <b-card class="mt-3 mb-3 p-3 bglight">
                       <b-card-text>
                         <div class="row">
-                          <div class="container col-md-4 text-left">
+                          <div class="container col-lg-4 text-center">
                             <div v-for="user in users" :key="user.id">
                               <div v-if="ad.user_id === user.id">
+                                <img :src="user.avatar" class="rounded-circle mb-3" alt="">
                                 <h6><b>{{user.name}}</b></h6>
                                   <h5 v-if="user.verified_coach === 1">
                                           <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
@@ -366,7 +388,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="container col-md-4 text-left">
+                          <div class="container col-lg-5 text-left">
                             <h6><b>Description</b></h6>
                             <div>{{ad.description}}</div>
                             <br>
@@ -375,7 +397,7 @@
                             <br>
                             <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
                           </div>
-                          <div class="container col-md-4 text-left">
+                          <div class="container col-lg-3 text-left">
                             <h6><b>Price</b></h6>
                             <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
                             <br>
@@ -408,12 +430,13 @@
                 </template>
                 <div v-for="ad in ads" :key="ad.id">
                   <div v-if="((ad.pending === 1)) && (ad.student_id === authuser.id) && (ad.rated === 1) && (ad.finished === 1)">
-                    <b-card img-src="https://placekitten.com/200/200" img-alt="Card image" img-left class="mt-3 mb-3 p-3 bglight">
+                    <b-card class="mt-3 mb-3 p-3 bglight">
                       <b-card-text>
                         <div class="row">
-                          <div class="container col-md-4 text-left">
+                          <div class="container col-lg-4 text-center">
                             <div v-for="user in users" :key="user.id">
                               <div v-if="ad.user_id === user.id">
+                                <img :src="user.avatar" class="rounded-circle mb-3" alt="">
                                 <h6><b>{{user.name}}</b></h6>
                                   <h5 v-if="user.verified_coach === 1">
                                           <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
@@ -428,7 +451,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="container col-md-4 text-left">
+                          <div class="container col-lg-5 text-left">
                             <h6><b>Description</b></h6>
                             <div>{{ad.description}}</div>
                             <br>
@@ -437,7 +460,7 @@
                             <br>
                             <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
                           </div>
-                          <div class="container col-md-4 text-left">
+                          <div class="container col-lg-3 text-left">
                             <h6><b>Price</b></h6>
                             <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
                             <br>
@@ -471,7 +494,8 @@ export default {
         hourly_rate: 0,
         description: ''
       },
-      comment: ''
+      comment: '',
+      perso: ''
     }
   },
   methods: {
@@ -497,6 +521,12 @@ export default {
     rateAd (id) {
       this.$store.dispatch('rateAd', [id, this.addrating])
         .then(this.$store.dispatch('getAds'))
+    },
+    setAvatar (data) {
+      this.$store.dispatch('setAvatar', [this.$store.state.authuser.id, data])
+        .then(User.auth().then(response => {
+          this.$store.commit('SET_USER_DATA', response.data)
+        }))
     }
   },
   created () {

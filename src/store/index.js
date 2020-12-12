@@ -56,6 +56,11 @@ const actions = {
       rank_id: data[1].rank_id
     })
   },
+  setAvatar ({commit}, data) {
+    axios.put('/users/' + data[0], {
+      avatar: 'http://ddragon.leagueoflegends.com/cdn/10.25.1/img/champion/' + data[1] + '.png'
+    })
+  },
   coachingDone ({commit}, data) {
     axios.put('/ad/' + data, {
       finished: 1

@@ -1,10 +1,12 @@
 <template>
   <div class="home col-5 mx-auto py-5 mt-5">
 <iframe v-if="this.form.email === 'wiggle'" width="800" height="720" src='https://www.youtube.com/embed/JzuZAdxSD1c?&autoplay=1&start=15' frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; start" allowfullscreen></iframe>
-    <div  v-if="this.form.email === 'maroua'">
-    <img src="../assets/non.jpg" class="animate__animated animate__infinite animate__shakeY" alt=""><br>
+  <div class="row" v-if="this.form.email === 'sebastien'">
+    <img src="../assets/6ob.gif" class="col-4"  alt="">
+    <img src="../assets/seb.jpeg" class="col-4">
+    <img src="../assets/6ob.gif" class="col-4"  alt="">
     <audio controls autoplay loop class="d-none">
-    <source src="../assets/hotel-mario-non-hd_1.mp3" type="audio/mpeg">
+    <source src="../assets/nouveau-film.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
     </audio>
     </div>
