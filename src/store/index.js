@@ -29,38 +29,8 @@ const actions = {
         commit('SET_ADS', response.data)
       })
   },
-  orderByPriceAsc ({commit}) {
-    axios.get('/user/priceAsc')
-      .then(response => {
-        commit('SET_ADS', response.data)
-      })
-  },
-  orderByPriceDesc ({commit}) {
-    axios.get('/user/priceDesc')
-      .then(response => {
-        commit('SET_ADS', response.data)
-      })
-  },
-  orderByDateAsc ({commit}) {
-    axios.get('/user/dateAsc')
-      .then(response => {
-        commit('SET_ADS', response.data)
-      })
-  },
-  orderByDateDesc ({commit}) {
-    axios.get('/user/dateDesc')
-      .then(response => {
-        commit('SET_ADS', response.data)
-      })
-  },
-  orderByDurationAsc ({commit}) {
-    axios.get('/user/durationAsc')
-      .then(response => {
-        commit('SET_ADS', response.data)
-      })
-  },
-  orderByDurationDesc ({commit}) {
-    axios.get('/user/durationDesc')
+  orderBy ({commit}, data) {
+    axios.get('/ads/' + data.order + '/' + data.type)
       .then(response => {
         commit('SET_ADS', response.data)
       })

@@ -23,12 +23,12 @@
           <div class="card" style="height: 700px">
             Search zone
             <b-input variant="outline-info mb-2" type="text" v-model="search" placeholder="Search for an ad"/><br>
-            <b-button variant="outline-info mt-2" @click="orderByPriceAsc()">Order by Ascending Price</b-button>
-            <b-button variant="outline-info mt-1" @click="orderByPriceDesc()">Order by Descending Price</b-button>
-            <b-button variant="outline-info mt-1" @click="orderByDateAsc()">Order by Nearest Coaching Date</b-button>
-            <b-button variant="outline-info mt-1" @click="orderByDateDesc()">Order by Furthest Coaching Date</b-button>
-            <b-button variant="outline-info mt-1" @click="orderByDurationAsc()">Order by Shortest coaching</b-button>
-            <b-button variant="outline-info mt-1" @click="orderByDurationDesc()">Order by Longest coaching</b-button>
+            <b-button variant="outline-info mt-2" @click="orderBy({'order' : 'hourly_rate', 'type' : 'asc'})">Order by Ascending Price</b-button>
+            <b-button variant="outline-info mt-1" @click="orderBy({'order' : 'hourly_rate', 'type' : 'desc'})">Order by Descending Price</b-button>
+            <b-button variant="outline-info mt-1" @click="orderBy({'order' : 'coaching_date', 'type' : 'asc'})">Order by Nearest Coaching Date</b-button>
+            <b-button variant="outline-info mt-1" @click="orderBy({'order' : 'coaching_date', 'type' : 'desc'})">Order by Furthest Coaching Date</b-button>
+            <b-button variant="outline-info mt-1" @click="orderBy({'order' : 'duration', 'type' : 'asc'})">Order by Shortest coaching</b-button>
+            <b-button variant="outline-info mt-1" @click="orderBy({'order' : 'duration', 'type' : 'desc'})">Order by Longest coaching</b-button>
           </div>
       </div>
 
@@ -164,23 +164,8 @@ export default {
     showAlert () {
       this.dismissCountDown = this.dismissSecs
     },
-    orderByPriceAsc () {
-      this.$store.dispatch('orderByPriceAsc')
-    },
-    orderByPriceDesc () {
-      this.$store.dispatch('orderByPriceDesc')
-    },
-    orderByDateAsc () {
-      this.$store.dispatch('orderByDateAsc')
-    },
-    orderByDateDesc () {
-      this.$store.dispatch('orderByDateDesc')
-    },
-    orderByDurationAsc () {
-      this.$store.dispatch('orderByDurationAsc')
-    },
-    orderByDurationDesc () {
-      this.$store.dispatch('orderByDurationDesc')
+    orderBy (data) {
+      this.$store.dispatch('orderBy', data)
     }
   },
   computed: {
