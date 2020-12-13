@@ -3,7 +3,7 @@
 <iframe v-if="this.form.email === 'wiggle'" width="800" height="720" src='https://www.youtube.com/embed/JzuZAdxSD1c?&autoplay=1&start=15' frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; start" allowfullscreen></iframe>
   <div class="row" v-if="this.form.email === 'sebastien'">
     <img src="../assets/6ob.gif" class="col-4"  alt="">
-    <img src="../assets/seb.jpeg" class="col-4">
+    <img src="../assets/seb.jpeg" class="col-4 animate__bounce animate__animated animate__infinite">
     <img src="../assets/6ob.gif" class="col-4"  alt="">
     <audio controls autoplay loop class="d-none">
     <source src="../assets/nouveau-film.mp3" type="audio/mpeg">
