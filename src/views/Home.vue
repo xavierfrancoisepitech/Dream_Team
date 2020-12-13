@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="container col-lg-6 text-left wow animate__animated animate__fadeInLeft row">
                         <h2 class="mb-5"> <img src="../assets/japansensei.png" alt=""> What is RiftSensei ?</h2>
-                        <h5>RiftSensei is a coaching plateform for League of Legends players. <br><br> Everyone can be a sensei (a coach), a student or both ! <br> Create your profile with your in-game stats that can be checked by other users. <br><br> Sensei post coaching ads with some informations and a student can book it. </h5>
+                        <h5>RiftSensei is a coaching plateform for League of Legends players. <br><br> Everyone can be a sensei (a coach), a student or both ! <br> Create your profile with your in-game stats that can be checked by other users. <br><br> Senseis post coaching ads with some informations and students can book it. </h5>
                     </div>
                     <div class="container col-md-6 wow animate__animated animate__fadeInRight text-right my-auto">
                         <img src="../assets/lol.png" class="rounded-pill" width="400px" alt="">
@@ -39,7 +39,7 @@
                     </div>
                     <div class="container col-md-6 text-left wow animate__animated animate__fadeInRight row">
                         <h2 class="mb-4"> ⚡️ RiftSensei is a virtuous circle ecosystem.</h2>
-                        <h5>Everyone can be a sensei or a student. You earn gems when you coach that you can spend to receive coaching from a more experiment player than you. <br><br>That's why using RiftSensei is totally free !</h5>
+                        <h5>Everyone can be a sensei or a student. You earn gems when you coach that you can spend to receive coaching from a more experienced player than you. <br><br>That's why using RiftSensei is totally free !</h5>
                     </div>
                 </div>
             </div>
@@ -66,8 +66,8 @@
                         <img src="../assets/market.png" class="rounded" height="100%" alt="">
                     </div>
                     <div class="container col-md-6 text-left wow animate__animated animate__fadeInRight row my-auto">
-                        <h2 class="mb-5"> <img src="../assets/gem.svg" height="25px" alt=""> Buy some gems on the Market.</h2>
-                        <h5>If you don't want to be a sensei to earn gems or if you don't have enought gems for a coaching, you can buy some gems on the market for few euros.</h5>
+                        <h2 class="mb-5"> <img src="../assets/gem.svg" height="25px" alt=""> Buy some gems in the Market.</h2>
+                        <h5>If you don't want to be a sensei to earn gems, don't fret you can still buy some gems on the market for few euros.</h5>
                     </div>
                 </div>
             </div>

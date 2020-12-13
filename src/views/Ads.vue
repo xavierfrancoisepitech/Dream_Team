@@ -166,5 +166,7 @@ export default {
 </script>
 
 <style scoped>
-
+.scroll-to-me{
+  color: #2c3e50;
+}
 </style>

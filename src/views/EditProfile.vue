@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h1>Profile Edition</h1>
     <b-row class="mt-2">
       <b-col sm="2"></b-col>
-      <b-col sm="8">
+      <b-col sm="8" class="card">
+        <h1 class="mb-3">Edit your profile</h1>
         <label for="textarea-Description">Description</label>
         <b-form-textarea
           v-model="form.description"
@@ -54,7 +54,7 @@
         <div  v-if="this.form.rank_id === 10">
           <img src="https://emoji.gg/assets/emoji/2506_Challenger.png" alt="" width="150" height="150">
         </div>
-        <button @click="editProfile()">Submit</button>
+        <button class="btn btn-info mx-auto my-2" @click="editProfile()">Submit</button>
       </b-col>
     </b-row>
   </div>
