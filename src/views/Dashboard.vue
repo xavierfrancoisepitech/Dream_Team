@@ -199,46 +199,42 @@
                     <b-card class="mt-3 mb-3 p-3 bglight">
                       <b-card-text>
                         <div class="row">
-                          <div class="container col-lg-4 text-center">
+                          <div class="container col-lg-6 text-center">
+                            <h5>Student info :</h5>
                             <div v-for="user in users" :key="user.id">
-                              <div v-if="ad.user_id === user.id">
+                              <div v-if="ad.student_id === user.id">
                                 <img :src="user.avatar" class="rounded-circle mb-3" alt="">
                                 <h6><b>{{user.name}}</b></h6>
                                   <h5 v-if="user.verified_coach === 1">
                                           <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
                                   </h5>
                                 <div v-for="rank in ranks" :key="rank.id">
-                                  <div v-if="user.rank_id === rank.id">
-                                    <h6><b>{{rank.name}}</b>
-                                      <img :src="rank.image" height="50" width="50">
-                                    </h6>
-                                  </div>
                                   <div v-if="ad.student_rank === rank.id">
                                     <br>
                                     <h6><b>Student rank :</b></h6>
                                     <h6><b>{{rank.name}}</b>
                                       <img :src="rank.image" height="50" width="50">
                                     </h6>
+                                    <a :href="'mailto:'+ user.email" class="btn btn-info mb-2 mx-auto"><i class="fas fa-envelope"></i> Mail student</a>
                                   </div>
                                 </div>
+                                <b-button class="mb-4 mb-sm-0" variant="outline-info" :to="{ path: 'profile/' + ad.student_id }"><i class="far fa-user"></i> Student profile</b-button>
                               </div>
                             </div>
                           </div>
-                          <div class="container col-lg-5 text-left">
-                            <h6><b>Description</b></h6>
+                          <div class="container col-lg-6 text-left">
+                            <h6><b>Coaching description</b></h6>
                             <div>{{ad.description}}</div>
                             <br>
                             <h6><b>Date of coaching</b></h6>
                             <div>{{ad.coaching_date}}</div>
                             <br>
                             <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
-                          </div>
-                          <div class="container col-lg-3 text-left">
+                            <br>
                             <h6><b>Price</b></h6>
                             <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
                             <br>
                             <button class="btn btn-primary mt-5" @click="coachingDone({'cost' : (ad.hourly_rate)*(ad.duration), 'id' : ad.id, 'hours': ad.duration})"><b>Coaching done</b></button>
-                            <button class="btn btn-info mt-1"><b>Mail student</b></button>
                           </div>
                         </div>
                       </b-card-text>
@@ -256,32 +252,30 @@
                     <b-card class="mt-3 mb-3 p-3 bglight">
                       <b-card-text>
                         <div class="row">
-                          <div class="container col-lg-4 text-center">
+                          <div class="container col-lg-6 text-center">
+                            <h5>Student info :</h5>
                             <div v-for="user in users" :key="user.id">
-                              <div v-if="ad.user_id === user.id">
+                              <div v-if="ad.student_id === user.id">
                                 <img :src="user.avatar" class="rounded-circle mb-3" alt="">
                                 <h6><b>{{user.name}}</b></h6>
                                   <h5 v-if="user.verified_coach === 1">
                                           <b-badge variant="success"><b-icon-patch-check-fll/> Official sensei</b-badge>
                                   </h5>
                                 <div v-for="rank in ranks" :key="rank.id">
-                                  <div v-if="user.rank_id === rank.id">
-                                    <h6><b>{{rank.name}}</b>
-                                      <img :src="rank.image" height="50" width="50">
-                                    </h6>
-                                  </div>
                                   <div v-if="ad.student_rank === rank.id">
                                     <br>
                                     <h6><b>Student rank :</b></h6>
                                     <h6><b>{{rank.name}}</b>
                                       <img :src="rank.image" height="50" width="50">
                                     </h6>
+                                    <a :href="'mailto:'+ user.email" class="btn btn-info mb-2 mx-auto"><i class="fas fa-envelope"></i> Mail student</a>
                                   </div>
                                 </div>
+                                <b-button class="mb-4 mb-sm-0" variant="outline-info" :to="{ path: 'profile/' + ad.student_id }"><i class="far fa-user"></i> Student profile</b-button>
                               </div>
                             </div>
                           </div>
-                          <div class="container col-lg-5 text-left">
+                          <div class="container col-lg-6 text-left">
                             <h6><b>Description</b></h6>
                             <div>{{ad.description}}</div>
                             <br>
@@ -289,13 +283,16 @@
                             <div>{{ad.coaching_date}}</div>
                             <br>
                             <h6><b>Duration : </b> {{ad.duration}} hour(s)</h6>
-                          </div>
-                          <div class="container col-lg-3 text-left">
+                            <br>
                             <h6><b>Price</b></h6>
                             <div>{{ad.hourly_rate}} <img class="pb-1" src="../assets/gem.svg" height="20px" alt=""> /hour</div>
                             <br>
                             <h6><b>Ad rating</b></h6>
-                            <div>{{ad.ad_rating}}/5</div>
+                            <div v-if="ad.rated === 1"><b>{{ ad.ad_rating }}/5 <i class="fas fa-star text-warning"></i></b></div>
+                            <div v-else>Not rated yet</div>
+                            <br>
+                            <h6><b>Ad comment</b></h6>
+                            <div>{{ad.comments}}</div>
                           </div>
                         </div>
                       </b-card-text>
