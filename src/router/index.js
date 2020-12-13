@@ -60,9 +60,10 @@ const router = new Router({
       component: Profile
     },
     {
-      path: '/profile/edit',
+      path: '/dashboard/edit',
       name: 'EditProfile',
-      component: EditProfile
+      component: EditProfile,
+      meta: {authOnly: true}
     },
     {
       path: '/ads/create',
