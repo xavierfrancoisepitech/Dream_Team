@@ -22,7 +22,7 @@
     <div class="row">
       <div class="container col-lg-3 p-4 pr-sm-0">
         <div class="container px-0">
-            <div class="card p-3" style="height: 333px">
+            <div class="card p-3" style="height: 365px">
               <div class="">
                 <h5 class="my-5"><i class="fas fa-search"></i> Find your perfect coaching </h5>
                 <b-input variant="outline-info" class="mb-2" type="text" v-model="search" placeholder="Search for an ad"/>
@@ -38,7 +38,7 @@
             </div>
           </div>
           <div class="container px-0 my-3 d-none d-lg-block">
-            <div class="card p-3" style="height: 333px">
+            <div class="card p-3" style="height: 335px">
               <h5 class="my-5"> Create your sensei ad and earn some gems ! <img src="../assets/gem.svg" height="30px" alt=""></h5>
               <b-button class="btn btn-primary" :to="{ name: 'CreateAd' }"><i class="far fa-plus-square"></i> Create ad</b-button>
             </div>
