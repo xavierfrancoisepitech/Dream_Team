@@ -14,7 +14,8 @@ const state = {
   ads: [],
   users: [],
   ranks: [],
-  authuser: null
+  authuser: null,
+  errors: []
 }
 
 // to handle state
@@ -77,6 +78,20 @@ const actions = {
       ad_rating: data[1],
       rated: 1
     })
+  },
+  createAd ({commit}, data) {
+    axios.post('/ad', {
+      user_id: data[0],
+      description: data[1].description,
+      coaching_date: data[1].coaching_date,
+      duration: data[1].duration,
+      hourly_rate: data[1].hourly_rate
+    })
+      .catch(error => {
+        if (error.response.status === 422) {
+          state.errors = error.response.data.errors
+        }
+      })
   },
   addGems ({commit}, data) {
     axios.put('/users/' + data[0], {

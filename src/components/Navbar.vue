@@ -29,6 +29,13 @@
         >
           Register
         </router-link>
+        <router-link
+          v-if="isLoggedIn && authuser"
+          class="nav-item nav-link"
+          :to="{ name: 'CreateAd' }"
+        >
+          Create ad
+        </router-link>
          <router-link
           v-if="isLoggedIn && authuser"
           class="nav-item nav-link"

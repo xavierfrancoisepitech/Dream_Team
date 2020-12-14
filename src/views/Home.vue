@@ -7,7 +7,7 @@
             <h1 class="display-4 mb-3"><b>RiftSensei !</b></h1>
             <h5 class="mb-4">Start your training and become a legend !</h5>
             <p class="lead">
-              <router-link to="/ads" class="btn btn-primary btn-lg mr-2 mb-2" role="button">Find your sensei</router-link>
+              <router-link to="/ads" class="btn btn-primary btn-lg mr-2 mb-2 mb-xl-0" role="button">Find your sensei</router-link>
               <router-link to="/ads/create" class="btn btn-outline-secondary text-white btn-lg mr-2" role="button">Become a sensei</router-link>
         </p>
 

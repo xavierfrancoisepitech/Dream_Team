@@ -85,7 +85,7 @@
                       <b-card title="Rates and comments" class="bglight mt-5">
                         <b-card-text>
                           <div v-for="ad in ads" :key="'n' + ad.id">
-                            <div class="card my-1 p-2 " v-if="authuser.id === ad.user_id">
+                            <div class="card my-1 p-2 " v-if="authuser.id === ad.user_id && ad.rated === 1">
                               <div class="row">
                                 <div class="col-4">Rate : <b>{{ ad.ad_rating }}/5 <i class="fas fa-star text-warning"></i></b></div>
                                 <div class="col-8">"{{ ad.comments }}"</div>

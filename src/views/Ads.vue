@@ -20,19 +20,28 @@
     </b-alert>
 
     <div class="row">
-      <div class="container col-lg-3 pt-4 pb-4 pl-4 pr-4 pr-sm-0">
-          <div class="card p-3" style="height: 300px">
-            <div class="my-auto">
-              <b-input variant="outline-info" class="mb-2" type="text" v-model="search" placeholder="Search for an ad"/>
+      <div class="container col-lg-3 p-4 pr-sm-0">
+        <div class="container px-0">
+            <div class="card p-3" style="height: 333px">
+              <div class="">
+                <h5 class="my-5"><i class="fas fa-search"></i> Find your perfect coaching </h5>
+                <b-input variant="outline-info" class="mb-2" type="text" v-model="search" placeholder="Search for an ad"/>
 
-              <b-dropdown id="dropdown-1" text="Sort By" variant="outline-info mt-1" block menu-class="w-100">
-                <b-dropdown-item @click="orderBy({'order' : 'hourly_rate', 'type' : 'asc'})">Ascending Hourly Price</b-dropdown-item>
-                <b-dropdown-item @click="orderBy({'order' : 'hourly_rate', 'type' : 'desc'})">Descending Hourly Price</b-dropdown-item>
-                <b-dropdown-item @click="orderBy({'order' : 'coaching_date', 'type' : 'asc'})">Nearest Coaching Date</b-dropdown-item>
-                <b-dropdown-item @click="orderBy({'order' : 'coaching_date', 'type' : 'desc'})">Furthest Coaching Date</b-dropdown-item>
-                <b-dropdown-item @click="orderBy({'order' : 'duration', 'type' : 'asc'})">Shortest coaching</b-dropdown-item>
-                <b-dropdown-item @click="orderBy({'order' : 'duration', 'type' : 'desc'})">Longest coaching</b-dropdown-item>
-              </b-dropdown>
+                <b-dropdown id="dropdown-1" text="Sort By" variant="outline-info mt-1" block menu-class="w-100">
+                  <b-dropdown-item @click="orderBy({'order' : 'hourly_rate', 'type' : 'asc'})">Ascending Hourly Price</b-dropdown-item>
+                  <b-dropdown-item @click="orderBy({'order' : 'hourly_rate', 'type' : 'desc'})">Descending Hourly Price</b-dropdown-item>
+                  <b-dropdown-item @click="orderBy({'order' : 'coaching_date', 'type' : 'asc'})">Nearest Coaching Date</b-dropdown-item>
+                  <b-dropdown-item @click="orderBy({'order' : 'coaching_date', 'type' : 'desc'})">Furthest Coaching Date</b-dropdown-item>
+                  <b-dropdown-item @click="orderBy({'order' : 'duration', 'type' : 'asc'})">Shortest coaching</b-dropdown-item>
+                  <b-dropdown-item @click="orderBy({'order' : 'duration', 'type' : 'desc'})">Longest coaching</b-dropdown-item>
+                </b-dropdown>
+            </div>
+          </div>
+          <div class="container px-0 my-3 d-none d-lg-block">
+            <div class="card p-3" style="height: 333px">
+              <h5 class="my-5"> Create your sensei ad and earn some gems ! <img src="../assets/gem.svg" height="30px" alt=""></h5>
+              <b-button class="btn btn-primary" :to="{ name: 'CreateAd' }"><i class="far fa-plus-square"></i> Create ad</b-button>
+            </div>
           </div>
         </div>
     </div>
