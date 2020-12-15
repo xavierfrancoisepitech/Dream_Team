@@ -57,7 +57,8 @@ const router = new Router({
     {
       path: '/profile/:id',
       name: 'Profile',
-      component: Profile
+      component: Profile,
+      meta: {authOnly: true}
     },
     {
       path: '/dashboard/edit',
