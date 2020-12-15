@@ -53,10 +53,27 @@
               <button
                 type="submit"
                 class="btn btn-primary btn-block"
-                @click="createAd()"
+                @click="createAd(); showAlert();"
               >
                 Become a Sensei !
               </button>
+              <div class="mt-3" v-if="this.$store.state.errors === 'no errors'">
+                <b-alert
+                  :show="dismissCountDown"
+                  dismissible
+                  variant="success"
+                  @dismissed="dismissCountDown=0"
+                  @dismiss-count-down="countDownChanged"
+                >
+                  <p>Your coaching ad has been posted. You can manage it on your <router-link to="/dashboard">dashboard !</router-link></p>
+                  <b-progress
+                    variant="success"
+                    :max="dismissSecs"
+                    :value="dismissCountDown"
+                    height="4px"
+                  ></b-progress>
+                </b-alert>
+              </div>
               <br>
             </div>
           </div>
@@ -68,14 +85,16 @@
 export default {
   data () {
     return {
-      currentDateWithFormat: '',
       form: {
         description: '',
         coaching_date: '',
         duration: null,
         hourly_rate: null
       },
-      errors: []
+      errors: [],
+      dismissSecs: 10,
+      dismissCountDown: 0,
+      showDismissibleAlert: false
     }
   },
   methods: {
@@ -83,6 +102,12 @@ export default {
       this.$store.dispatch('createAd', [this.$store.state.authuser.id, this.form])
       // .then(this.$router.push({ name: 'Ads' }))
       // .then(alert('Ad créé'))
+    },
+    countDownChanged (dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    showAlert () {
+      this.dismissCountDown = this.dismissSecs
     }
   }
 }

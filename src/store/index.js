@@ -87,6 +87,7 @@ const actions = {
       duration: data[1].duration,
       hourly_rate: data[1].hourly_rate
     })
+      .then(state.errors = 'no errors')
       .catch(error => {
         if (error.response.status === 422) {
           state.errors = error.response.data.errors
